@@ -14,6 +14,27 @@ public class UserEntity {
     private String username;
     @Column(name = "password")
     private String password;
+    @Column(name = "lastname")
+    private String lastname;
+    @Column(name = "firstname")
+    private String firstname;
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private RoleEntity role;

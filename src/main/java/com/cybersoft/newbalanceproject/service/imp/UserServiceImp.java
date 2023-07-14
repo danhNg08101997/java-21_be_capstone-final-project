@@ -21,6 +21,8 @@ public class UserServiceImp implements UserService {
             UserEntity user = new UserEntity();
             user.setUsername(signUpRequest.getUsername());
             user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
+            user.setFirstname(signUpRequest.getFirstname());
+            user.setLastname(signUpRequest.getLastname());
 
             userRepository.save(user);
             isSuccess = true;
