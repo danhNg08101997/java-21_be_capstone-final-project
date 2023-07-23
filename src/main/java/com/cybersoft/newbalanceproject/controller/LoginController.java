@@ -2,17 +2,14 @@ package com.cybersoft.newbalanceproject.controller;
 
 import com.cybersoft.newbalanceproject.dto.request.SignUpRequest;
 import com.cybersoft.newbalanceproject.dto.response.BaseResponse;
-import com.cybersoft.newbalanceproject.service.imp.UserServiceImp;
+import com.cybersoft.newbalanceproject.service.UserService;
 import com.cybersoft.newbalanceproject.utils.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -23,7 +20,7 @@ public class LoginController {
     @Autowired
     private JwtHelper jwtHelper;
     @Autowired
-    private UserServiceImp userServiceImp;
+    private UserService userService;
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
     public ResponseEntity<?>signIn(
@@ -42,10 +39,8 @@ public class LoginController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public ResponseEntity<?> signup(@Valid SignUpRequest signupRequest){
-
-        boolean isSuccess = userServiceImp.insertUser(signupRequest);
-
+    public ResponseEntity<?> signup(@Valid @RequestBody SignUpRequest signupRequest){
+        boolean isSuccess = userService.insertUser(signupRequest);
         BaseResponse response = new BaseResponse();
         response.setStatusCode(200);
         response.setMessage("Đăng ký thành công");
