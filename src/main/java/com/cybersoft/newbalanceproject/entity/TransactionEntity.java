@@ -1,5 +1,7 @@
 package com.cybersoft.newbalanceproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Set;
@@ -13,8 +15,8 @@ public class TransactionEntity {
     @JoinColumn(name="customer_id")
     private CustomerEntity customer;
     @ManyToOne
-    @JoinColumn(name="gdv")
-    private GDVEntity gdvtrans;
+    @JoinColumn(name="gdv_id")
+    private GDVEntity gdvOfTransaction;
     @ManyToOne
     @JoinColumn(name="product_id")
     private ProductEntity product;
@@ -22,42 +24,45 @@ public class TransactionEntity {
     @JoinColumn(name="status_id")
     private StatusEntity status;
     @Column(name = "start_time")
-    private Date start_time;
+    private Date startTime;
     @Column(name = "end_time")
-    private Date end_time;
+    private Date endTime;
+    @Column(name = "is_delete")
+    private boolean isDelete;
     @OneToMany(mappedBy = "transaction")
-    private Set<TicketEntitty> ticket;
+    @JsonIgnore
+    private Set<TicketEntitty> tickets;
 
-    public void setTicket(Set<TicketEntitty> ticket) {
-        this.ticket = ticket;
+    public int getTransId() {
+        return transId;
     }
 
-    public Set<TicketEntitty> getTicket() {
-        return ticket;
+    public void setTransId(int transId) {
+        this.transId = transId;
     }
 
     public CustomerEntity getCustomer() {
         return customer;
     }
 
-    public Date getEnd_time() {
-        return end_time;
+    public void setCustomer(CustomerEntity customer) {
+        this.customer = customer;
     }
 
-    public Date getStart_time() {
-        return start_time;
+    public GDVEntity getGdvOfTransaction() {
+        return gdvOfTransaction;
     }
 
-    public GDVEntity getGdvtrans() {
-        return gdvtrans;
-    }
-
-    public int getTransId() {
-        return transId;
+    public void setGdvOfTransaction(GDVEntity gdvOfTransaction) {
+        this.gdvOfTransaction = gdvOfTransaction;
     }
 
     public ProductEntity getProduct() {
         return product;
+    }
+
+    public void setProduct(ProductEntity product) {
+        this.product = product;
     }
 
     public StatusEntity getStatus() {
@@ -68,27 +73,35 @@ public class TransactionEntity {
         this.status = status;
     }
 
-    public void setProduct(ProductEntity product) {
-        this.product = product;
+    public Date getStartTime() {
+        return startTime;
     }
 
-    public void setCustomer(CustomerEntity customer) {
-        this.customer = customer;
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
-    public void setEnd_time(Date end_time) {
-        this.end_time = end_time;
+    public Date getEndTime() {
+        return endTime;
     }
 
-    public void setGdvtrans(GDVEntity gdvtrans) {
-        this.gdvtrans = gdvtrans;
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
-    public void setStart_time(Date start_time) {
-        this.start_time = start_time;
+    public boolean isDelete() {
+        return isDelete;
     }
 
-    public void setTransId(int transId) {
-        this.transId = transId;
+    public void setDelete(boolean delete) {
+        isDelete = delete;
+    }
+
+    public Set<TicketEntitty> getTicket() {
+        return tickets;
+    }
+
+    public void setTicket(Set<TicketEntitty> ticket) {
+        this.tickets = ticket;
     }
 }

@@ -13,69 +13,62 @@ public class ProductEntity {
     private int productId;
     @Column(name = "product_name")
     private String productName;
-    @Column(name = "product_des")
+    @Column(name = "product_desc")
     private String productDesc;
-    @Column(name = "price")
-    private double price;
-    @Column(name = "total_quantity")
-    private int quantity;
-    @Column(name = "listImage")
-    private String listImage;
+    @Column(name = "is_delete")
+    private boolean isDelete;
     @OneToMany(mappedBy = "product")
-    private Set<TransactionEntity> transaction;
+    @JsonIgnore
+    private Set<TransactionEntity> transactions;
+    @OneToMany(mappedBy = "productOfSupport")
+    @JsonIgnore
+    private Set<GDVProductEntity> gdvProducts;
 
-    public Set<TransactionEntity> getTransaction() {
-        return transaction;
+    public Set<GDVProductEntity> getGdvProducts() {
+        return gdvProducts;
     }
 
-    public void setTransaction(Set<TransactionEntity> transaction) {
-        this.transaction = transaction;
-    }
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
-
-    public void setProductDesc(String productDesc) {
-        this.productDesc = productDesc;
-    }
-
-    public void setListImage(String listImage) {
-        this.listImage = listImage;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public int getQuantity() {
-        return quantity;
+    public void setGdvProducts(Set<GDVProductEntity> gdvProducts) {
+        this.gdvProducts = gdvProducts;
     }
 
     public int getProductId() {
         return productId;
     }
 
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
     public String getProductName() {
         return productName;
     }
 
-    public String getListImage() {
-        return listImage;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getProductDesc() {
         return productDesc;
+    }
+
+    public void setProductDesc(String productDesc) {
+        this.productDesc = productDesc;
+    }
+
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
+    }
+
+    public Set<TransactionEntity> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(Set<TransactionEntity> transactions) {
+        this.transactions = transactions;
     }
 }

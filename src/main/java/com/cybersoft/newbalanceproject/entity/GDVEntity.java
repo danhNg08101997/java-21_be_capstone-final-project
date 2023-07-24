@@ -1,5 +1,7 @@
 package com.cybersoft.newbalanceproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -9,56 +11,93 @@ public class GDVEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int gdvId;
     @Column(name = "gdv_name")
-    private String gdvName;
+    private String username;
     @Column(name = "gdv_password")
-    private String gdvPassword;
+    private String password;
+    @Column(name = "fullname")
+    private String fullname;
     @Column(name = "is_available")
-    private boolean is_available;
-    @OneToMany(mappedBy = "gdvtrans")
-    private Set<TransactionEntity> transaction;
-    @OneToMany(mappedBy = "gdv")
-    private Set<TicketEntitty> ticket;
-
-    public Set<TicketEntitty> getTicket() {
-        return ticket;
-    }
-    public void getTicket(Set<TicketEntitty> ticket) {
-        this.ticket = ticket;
-    }
-
-    public Set<TransactionEntity> getTransaction() {
-        return transaction;
-    }
-
-    public void setTransaction(Set<TransactionEntity> transaction) {
-        this.transaction = transaction;
-    }
+    private boolean isAvailable;
+//    @Column(name = "is_delete")
+//    private boolean isDelete;
+    @OneToMany(mappedBy = "gdvOfTransaction")
+    @JsonIgnore
+    private Set<TransactionEntity> transactions;
+    @OneToMany(mappedBy = "gdvOfTicket")
+    @JsonIgnore
+    private Set<TicketEntitty> tickets;
+    @OneToMany(mappedBy = "gdvOfSupport")
+    @JsonIgnore
+    private Set<GDVProductEntity> gdvProducts;
 
     public int getGdvId() {
         return gdvId;
     }
-
-    public String getGdvName() {
-        return gdvName;
-    }
-
-    public String getGdvPassword() {
-        return gdvPassword;
-    }
-
     public void setGdvId(int gdvId) {
         this.gdvId = gdvId;
     }
 
-    public void setGdvName(String gdvName) {
-        this.gdvName = gdvName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setGdvPassword(String gdvPassword) {
-        this.gdvPassword = gdvPassword;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setIs_available(boolean is_available) {
-        this.is_available = is_available;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+
+//    public boolean isDelete() {
+//        return isDelete;
+//    }
+//
+//    public void setDelete(boolean delete) {
+//        isDelete = delete;
+//    }
+
+    public Set<TicketEntitty> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(Set<TicketEntitty> tickets) {
+        this.tickets = tickets;
+    }
+
+    public Set<TransactionEntity> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(Set<TransactionEntity> transactions) {
+        this.transactions = transactions;
+    }
+
+    public Set<GDVProductEntity> getGdvProducts() {
+        return gdvProducts;
+    }
+
+    public void setGdvProducts(Set<GDVProductEntity> gdvProducts) {
+        this.gdvProducts = gdvProducts;
     }
 }

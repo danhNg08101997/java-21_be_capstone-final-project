@@ -1,5 +1,7 @@
 package com.cybersoft.newbalanceproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -10,16 +12,28 @@ public class StatusEntity {
     private int statusId;
     @Column(name="status_name")
     private String statusName;
+    @Column(name = "is_delete")
+    private boolean isDelete;
     @OneToMany(mappedBy = "status")
-    private Set<TransactionEntity> transaction;
+    @JsonIgnore
+    private Set<TransactionEntity> transactions;
 
-    public Set<TransactionEntity> getTransaction() {
-        return transaction;
+    public boolean isDelete() {
+        return isDelete;
     }
 
-    public void setTransaction(Set<TransactionEntity> transaction) {
-        this.transaction = transaction;
+    public void setDelete(boolean delete) {
+        isDelete = delete;
     }
+
+    public Set<TransactionEntity> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(Set<TransactionEntity> transactions) {
+        this.transactions = transactions;
+    }
+
     public int getStatusId() {
         return statusId;
     }

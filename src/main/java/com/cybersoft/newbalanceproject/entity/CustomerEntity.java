@@ -1,5 +1,7 @@
 package com.cybersoft.newbalanceproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.nio.MappedByteBuffer;
 import java.util.Set;
@@ -10,47 +12,68 @@ public class CustomerEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int customerId;
     @Column(name = "customer_name")
-    private String customerName;
+    private String username;
     @Column(name = "customer_password")
-    private String customerPassword;
+    private String password;
     @Column(name = "is_priority")
-    private boolean Priority;
+    private boolean priority;
+//    @Column(name = "is_delete")
+//    private boolean isDelete;
+    @Column(name = "fullname")
+    private String fullname;
     @OneToMany(mappedBy = "customer")
-    private Set<TransactionEntity> transaction ;
+    @JsonIgnore
+    private Set<TransactionEntity> transactions ;
 
-    public void setTransaction(Set<TransactionEntity> transaction) {
-        this.transaction = transaction;
+    public String getUsername() {
+        return username;
     }
 
-    public Set<TransactionEntity> getTransaction() {
-        return transaction;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public String getPassword() {
+        return password;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void setCustomerPassword(String customerPassword) {
-        this.customerPassword = customerPassword;
+    public boolean isPriority() {
+        return priority;
     }
 
     public void setPriority(boolean priority) {
-        Priority = priority;
+        this.priority = priority;
     }
 
-    public int getCustomerId() {
-        return customerId;
+//    public boolean isDelete() {
+//        return isDelete;
+//    }
+//
+//    public void setDelete(boolean delete) {
+//        isDelete = delete;
+//    }
+
+    public String getFullname() {
+        return fullname;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+    public int getCustomerId() {return customerId;}
+
+    public Set<TransactionEntity> getTransactions() {
+        return transactions;
     }
 
-    public String getCustomerPassword() {
-        return customerPassword;
+    public void setTransactions(Set<TransactionEntity> transactions) {
+        this.transactions = transactions;
     }
 }

@@ -8,31 +8,49 @@ public class TicketEntitty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ticketId;
+    @Column(name = "ticket_message")
+    private String message;
+    @Column(name = "create_at")
+    private Date create;
+    @Column(name = "is_delete")
+    private boolean isDelete;
     @ManyToOne
     @JoinColumn(name = "transaction_id")
     private TransactionEntity transaction;
     @ManyToOne
     @JoinColumn(name = "gdv_id")
-    private GDVEntity gdv;
-    @Column(name = "ticket_message")
-    private String message;
-    @Column(name = "create_at")
-    private Date create;
+    private GDVEntity gdvOfTicket;
 
-    public GDVEntity getGdv() {
-        return gdv;
+    public int getTicketId() {
+        return ticketId;
+    }
+
+    public void setTicketId(int ticketId) {
+        this.ticketId = ticketId;
     }
 
     public String getMessage() {
         return message;
     }
 
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public Date getCreate() {
         return create;
     }
 
-    public int getTicketId() {
-        return ticketId;
+    public void setCreate(Date create) {
+        this.create = create;
+    }
+
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
     }
 
     public TransactionEntity getTransaction() {
@@ -43,20 +61,11 @@ public class TicketEntitty {
         this.transaction = transaction;
     }
 
-    public void setGdv(GDVEntity gdv) {
-        this.gdv = gdv;
+    public GDVEntity getGdvOfTicket() {
+        return gdvOfTicket;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public void setTicketId(int ticketId) {
-        this.ticketId = ticketId;
-    }
-
-    public void setCreate(Date create) {
-        this.create = create;
-
+    public void setGdvOfTicket(GDVEntity gdvOfTicket) {
+        this.gdvOfTicket = gdvOfTicket;
     }
 }

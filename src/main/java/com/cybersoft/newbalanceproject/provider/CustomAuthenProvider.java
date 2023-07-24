@@ -1,7 +1,7 @@
 package com.cybersoft.newbalanceproject.provider;
 
-import com.cybersoft.newbalanceproject.entity.UserEntity;
-import com.cybersoft.newbalanceproject.repository.UserRepository;
+import com.cybersoft.newbalanceproject.entity.AdminEntity;
+import com.cybersoft.newbalanceproject.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 @Service
 public class CustomAuthenProvider implements AuthenticationProvider {
     @Autowired
-    private UserRepository userRepository;
+    private AdminRepository adminRepository;
     @Autowired
     @Lazy
     private PasswordEncoder passwordEncoder;
@@ -28,7 +28,7 @@ public class CustomAuthenProvider implements AuthenticationProvider {
         //Lấy mật khẩu người dùng truyền vào
         String password = authentication.getCredentials().toString();
 
-        UserEntity user = userRepository.findByUsername(username);
+        AdminEntity user = adminRepository.findByUsername(username);
 
         if(user != null && passwordEncoder.matches(password, user.getPassword())){
             // Đăng nhập thành công
