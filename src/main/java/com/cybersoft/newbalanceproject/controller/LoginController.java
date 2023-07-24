@@ -4,6 +4,7 @@ import com.cybersoft.newbalanceproject.dto.request.SignUpRequest;
 import com.cybersoft.newbalanceproject.dto.response.BaseResponse;
 import com.cybersoft.newbalanceproject.repository.AdminRepository;
 import com.cybersoft.newbalanceproject.service.IAdminService;
+import com.cybersoft.newbalanceproject.service.ICustomerService;
 import com.cybersoft.newbalanceproject.utils.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,7 @@ public class LoginController {
     @Autowired
     private JwtHelper jwtHelper;
     @Autowired
-    private IAdminService adminService;
+    private ICustomerService customerService;
 
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
@@ -42,7 +43,7 @@ public class LoginController {
     }
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public ResponseEntity<BaseResponse> signup(@Valid @RequestBody SignUpRequest signupRequest){
-        boolean isSuccess = adminService.addAdmin(signupRequest);
+        boolean isSuccess = customerService.addCustomer(signupRequest);
         BaseResponse response = new BaseResponse();
 
         if(isSuccess) {
