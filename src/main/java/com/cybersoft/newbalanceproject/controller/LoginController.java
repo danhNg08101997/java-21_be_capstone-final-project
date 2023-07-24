@@ -2,7 +2,8 @@ package com.cybersoft.newbalanceproject.controller;
 
 import com.cybersoft.newbalanceproject.dto.request.SignUpRequest;
 import com.cybersoft.newbalanceproject.dto.response.BaseResponse;
-import com.cybersoft.newbalanceproject.service.UserService;
+import com.cybersoft.newbalanceproject.repository.AdminRepository;
+import com.cybersoft.newbalanceproject.service.IAdminService;
 import com.cybersoft.newbalanceproject.utils.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,10 +21,11 @@ public class LoginController {
     @Autowired
     private JwtHelper jwtHelper;
     @Autowired
-    private UserService userService;
+    private IAdminService adminService;
+
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
-    public ResponseEntity<?>signIn(
+    public ResponseEntity<BaseResponse>signIn(
             @RequestParam String username,
             @RequestParam String password
     ){
@@ -39,12 +41,19 @@ public class LoginController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public ResponseEntity<?> signup(@Valid @RequestBody SignUpRequest signupRequest){
-        boolean isSuccess = userService.insertUser(signupRequest);
+    public ResponseEntity<BaseResponse> signup(@Valid @RequestBody SignUpRequest signupRequest){
+        boolean isSuccess = adminService.addAdmin(signupRequest);
         BaseResponse response = new BaseResponse();
-        response.setStatusCode(200);
-        response.setMessage("Đăng ký thành công");
-        response.setData(isSuccess);
+
+        if(isSuccess) {
+            response.setStatusCode(HttpStatus.OK.value());
+            response.setMessage("Đăng ký thành công");
+            response.setData(isSuccess);
+        }else {
+            response.setStatusCode(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("Đăng ký thất bại - vì đã tồn tại username: " + signupRequest.getUsername() + " trong hệ thống");
+            response.setData(isSuccess);
+        }
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

@@ -4,33 +4,21 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class SignUpRequest {
-    @NotNull
-    @NotEmpty
-    private String firstname;
-    @NotNull
-    @NotEmpty
-    private String lastname;
-    @NotNull
-    @NotEmpty
+
+    private String fullname;
+    @NotNull(message = "username not null")
+    @NotEmpty(message = "username not empty")
     private String username;
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "password not null")
+    @NotEmpty(message = "password not empty")
     private String password;
-
-    public String getFirstname() {
-        return firstname;
+    
+    public String getFullname() {
+        return fullname;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getUsername() {
