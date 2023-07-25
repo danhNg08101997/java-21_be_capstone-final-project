@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GDVRepository extends JpaRepository<GDVEntity, Integer> {
-    GDVEntity findByUsernameAndPassword(String username, String password);
+    GDVEntity findByUsername(String username);
 }

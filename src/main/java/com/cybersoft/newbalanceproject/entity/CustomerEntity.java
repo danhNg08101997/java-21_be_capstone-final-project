@@ -10,6 +10,7 @@ import java.util.Set;
 public class CustomerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "customer_id")
     private int customerId;
     @Column(name = "customer_name")
     private String username;

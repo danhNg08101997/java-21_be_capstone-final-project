@@ -9,6 +9,7 @@ import java.util.Set;
 public class StatusEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "status_id")
     private int statusId;
     @Column(name="status_name")
     private String statusName;
