@@ -40,19 +40,21 @@ public class CustomAuthenProvider implements AuthenticationProvider {
         // Kiểm tra đăng nhập admin
         AdminEntity admin = adminRepository.findByUsernameAndPassword(username, password);
         if(admin != null && passwordEncoder.matches(password, admin.getPassword())){
-            SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_CUSTOMER");
+            SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_ADMIN");
             // Đăng nhập thành công
             return new UsernamePasswordAuthenticationToken(username, admin.getPassword(), List.of(authority));
         };
         // Kiểm tra đăng nhập customer
         CustomerEntity customer = customerRepository.findByUsernameAndPassword(username, password);
         if(customer != null && passwordEncoder.matches(password, customer.getPassword())){
+            SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_CUSTOMER");
             // Đăng nhập thành công
             return new UsernamePasswordAuthenticationToken(username, customer.getPassword(), new ArrayList<>());
         };
         // Kiểm tra đăng nhập GDV
         GDVEntity gdv = gdvRepository.findByUsernameAndPassword(username, password);
         if(gdv != null && passwordEncoder.matches(password, gdv.getPassword())){
+            SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_GDV");
             // Đăng nhập thành công
             return new UsernamePasswordAuthenticationToken(username, gdv.getPassword(), new ArrayList<>());
         };
