@@ -49,14 +49,14 @@ public class CustomAuthenProvider implements AuthenticationProvider {
         if(customer != null && passwordEncoder.matches(password, customer.getPassword())){
             SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_CUSTOMER");
             // Đăng nhập thành công
-            return new UsernamePasswordAuthenticationToken(username, customer.getPassword(), new ArrayList<>());
+            return new UsernamePasswordAuthenticationToken(username, customer.getPassword(), List.of(authority));
         };
         // Kiểm tra đăng nhập GDV
         GDVEntity gdv = gdvRepository.findByUsernameAndPassword(username, password);
         if(gdv != null && passwordEncoder.matches(password, gdv.getPassword())){
             SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_GDV");
             // Đăng nhập thành công
-            return new UsernamePasswordAuthenticationToken(username, gdv.getPassword(), new ArrayList<>());
+            return new UsernamePasswordAuthenticationToken(username, gdv.getPassword(), List.of(authority));
         };
 
         return null;
