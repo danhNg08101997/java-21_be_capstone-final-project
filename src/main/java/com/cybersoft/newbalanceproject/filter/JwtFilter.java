@@ -20,7 +20,7 @@ import java.util.ArrayList;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
     @Autowired
-    JwtHelper jwtHelper;
+    private JwtHelper jwtHelper;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 

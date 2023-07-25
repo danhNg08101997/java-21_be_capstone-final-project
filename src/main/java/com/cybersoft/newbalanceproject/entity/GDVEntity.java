@@ -18,8 +18,8 @@ public class GDVEntity {
     private String fullname;
     @Column(name = "is_available")
     private boolean isAvailable;
-//    @Column(name = "is_delete")
-//    private boolean isDelete;
+    @Column(name = "is_delete")
+    private boolean isDelete;
     @OneToMany(mappedBy = "gdvOfTransaction")
     @JsonIgnore
     private Set<TransactionEntity> transactions;
@@ -69,13 +69,13 @@ public class GDVEntity {
         isAvailable = available;
     }
 
-//    public boolean isDelete() {
-//        return isDelete;
-//    }
-//
-//    public void setDelete(boolean delete) {
-//        isDelete = delete;
-//    }
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
+    }
 
     public Set<TicketEntitty> getTickets() {
         return tickets;

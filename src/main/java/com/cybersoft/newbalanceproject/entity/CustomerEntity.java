@@ -17,8 +17,8 @@ public class CustomerEntity {
     private String password;
     @Column(name = "is_priority")
     private boolean priority;
-//    @Column(name = "is_delete")
-//    private boolean isDelete;
+    @Column(name = "is_delete")
+    private boolean isDelete;
     @Column(name = "fullname")
     private String fullname;
     @OneToMany(mappedBy = "customer")
@@ -49,13 +49,13 @@ public class CustomerEntity {
         this.priority = priority;
     }
 
-//    public boolean isDelete() {
-//        return isDelete;
-//    }
-//
-//    public void setDelete(boolean delete) {
-//        isDelete = delete;
-//    }
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
+    }
 
     public String getFullname() {
         return fullname;

@@ -22,6 +22,8 @@ public class CustomerServiceImp implements ICustomerService {
             customer.setUsername(request.getUsername());
             customer.setFullname(request.getFullname());
             customer.setPassword(passwordEncoder.encode(request.getPassword()));
+            customer.setDelete(false);
+            customer.setPriority(false);
             // Kiểm tra trùng
             int countUsername = repository.countByUsername(request.getUsername());
             if(countUsername>0){

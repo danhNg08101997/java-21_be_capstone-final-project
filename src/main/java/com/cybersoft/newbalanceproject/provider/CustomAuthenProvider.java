@@ -12,10 +12,12 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CustomAuthenProvider implements AuthenticationProvider {
@@ -38,8 +40,9 @@ public class CustomAuthenProvider implements AuthenticationProvider {
         // Kiểm tra đăng nhập admin
         AdminEntity admin = adminRepository.findByUsername(username);
         if(admin != null && passwordEncoder.matches(password, admin.getPassword())){
+            SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_CUSTOMER");
             // Đăng nhập thành công
-            return new UsernamePasswordAuthenticationToken(username, admin.getPassword(), new ArrayList<>());
+            return new UsernamePasswordAuthenticationToken(username, admin.getPassword(), List.of(authority));
         };
         // Kiểm tra đăng nhập customer
         CustomerEntity customer = customerRepository.findByUsername(username);

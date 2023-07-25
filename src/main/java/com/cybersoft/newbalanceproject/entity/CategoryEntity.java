@@ -9,8 +9,8 @@ public class CategoryEntity {
     private int id;
     @Column(name = "category_name")
     private String categoryName;
-//    @Column(name = "is_delete")
-//    private boolean isDelete;
+    @Column(name = "is_delete")
+    private boolean isDelete;
 
     public int getId() {
         return id;
@@ -28,11 +28,11 @@ public class CategoryEntity {
         this.categoryName = categoryName;
     }
 
-//    public boolean isDelete() {
-//        return isDelete;
-//    }
-//
-//    public void setDelete(boolean delete) {
-//        isDelete = delete;
-//    }
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
+    }
 }
