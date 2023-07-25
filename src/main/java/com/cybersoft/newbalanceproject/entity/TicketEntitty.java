@@ -7,6 +7,7 @@ import java.sql.Date;
 public class TicketEntitty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ticket_id")
     private int ticketId;
     @Column(name = "ticket_message")
     private String message;

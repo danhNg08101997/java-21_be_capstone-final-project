@@ -9,6 +9,7 @@ import java.util.Set;
 public class GDVEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "gdv_id")
     private int gdvId;
     @Column(name = "gdv_name")
     private String username;

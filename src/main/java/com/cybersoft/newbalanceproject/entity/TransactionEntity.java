@@ -10,6 +10,7 @@ import java.util.Set;
 public class TransactionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "transaction_id")
     private int transId;
     @ManyToOne
     @JoinColumn(name="customer_id")
