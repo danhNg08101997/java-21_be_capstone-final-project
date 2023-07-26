@@ -1,9 +1,13 @@
 package com.cybersoft.newbalanceproject.service.imp;
 
 import com.cybersoft.newbalanceproject.dto.request.SignUpRequest;
+<<<<<<< HEAD
 import com.cybersoft.newbalanceproject.dto.response.BaseResponse;
 import com.cybersoft.newbalanceproject.dto.response.CategoryResponse;
 import com.cybersoft.newbalanceproject.dto.response.CustomerRespone;
+=======
+import com.cybersoft.newbalanceproject.dto.response.CustomerDTO;
+>>>>>>> 6d096f8dcc5d6b04760ac6f8be0c6f417578fd4c
 import com.cybersoft.newbalanceproject.entity.CustomerEntity;
 import com.cybersoft.newbalanceproject.repository.CustomerRepository;
 import com.cybersoft.newbalanceproject.service.ICustomerService;
@@ -14,7 +18,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 import java.lang.reflect.Type;
+=======
+>>>>>>> 6d096f8dcc5d6b04760ac6f8be0c6f417578fd4c
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +58,7 @@ public class CustomerServiceImp implements ICustomerService {
     }
 
     @Override
+<<<<<<< HEAD
     public List<CustomerRespone> findAllByIsNotDelete() {
         List<CustomerRespone> respones = new ArrayList<>();
         if(redis.hasKey("listCustomer")){
@@ -90,5 +98,18 @@ public class CustomerServiceImp implements ICustomerService {
             response.setData(true);
 
         return response;
+=======
+    public List<CustomerDTO> GetAllCustomer() {
+        List<CustomerEntity> entityList = repository.GetAllCustomer();
+        List<CustomerDTO> customerDTOList = new ArrayList<>();
+        for(CustomerEntity item : entityList) {
+            CustomerDTO customerDTO = new CustomerDTO();
+            customerDTO.setCustomerId(item.getCustomerId());
+            customerDTO.setUsername(item.getUsername());
+            customerDTO.setFullname(item.getFullname());
+            customerDTOList.add(customerDTO);
+        }
+        return customerDTOList;
+>>>>>>> 6d096f8dcc5d6b04760ac6f8be0c6f417578fd4c
     }
 }
