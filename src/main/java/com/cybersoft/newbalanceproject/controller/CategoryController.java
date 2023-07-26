@@ -7,10 +7,7 @@ import com.cybersoft.newbalanceproject.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/category")
@@ -44,8 +41,8 @@ public class CategoryController {
         }
 
         @PostMapping("/delete")
-    public ResponseEntity<BaseResponse>delete(@RequestBody CategoryRequest request){
-            return new ResponseEntity<>(service.deleteCategory(request.getId()),HttpStatus.OK);
+    public ResponseEntity<BaseResponse>delete(@RequestParam int id){
+            return new ResponseEntity<>(service.deleteCategory(id),HttpStatus.OK);
         }
         @PostMapping("/edit")
     public ResponseEntity<BaseResponse>edit(@RequestBody CategoryRequest request){

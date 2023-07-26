@@ -37,7 +37,7 @@ public class CategoryServiceImp implements ICategoryService {
 
         }else {
             System.out.println("Không có giá trị trên redis");
-            List<CategoryEntity> list = repository.findAll();
+            List<CategoryEntity> list = repository.findAllBydelete();
 
             for (CategoryEntity data: list) {
                 CategoryResponse categoryResponse = new CategoryResponse();
@@ -96,7 +96,7 @@ public class CategoryServiceImp implements ICategoryService {
     @Override
     public BaseResponse editCategory(CategoryRequest request) {
         BaseResponse response = new BaseResponse();
-         int count = repository.update(request.getId());
+         int count = repository.update(request.getId(),request.getName());
         if(count > 0){
             response.setStatusCode(HttpStatus.OK.value());
             response.setMessage("Cập nhật thành công");

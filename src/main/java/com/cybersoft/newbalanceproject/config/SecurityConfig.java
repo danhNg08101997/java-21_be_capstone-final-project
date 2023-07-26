@@ -42,6 +42,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests() //Quy định lại các rule liên quan đến chứng thực cho link được gọi
                 .antMatchers("/signin", "/signup").permitAll()
+                .antMatchers("/customer/**").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated() //Tất cả các link còn lại đều phải chứng thực
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
