@@ -44,7 +44,7 @@ public class CustomerServiceImp implements ICustomerService {
 
     @Override
     public List<CustomerDTO> GetAllCustomer() {
-        List<CustomerEntity> entityList = repository.findAll();
+        List<CustomerEntity> entityList = repository.GetAllCustomer();
         List<CustomerDTO> customerDTOList = new ArrayList<>();
         for(CustomerEntity item : entityList) {
             CustomerDTO customerDTO = new CustomerDTO();
