@@ -3,6 +3,15 @@ package com.cybersoft.newbalanceproject.dto.request;
 public class CategoryRequest {
     private int id;
     private String name;
+    private boolean isDelete;
+
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
+    }
 
     public int getId() {
         return id;

@@ -7,14 +7,17 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Integer> {
+    List<CategoryEntity> findByIsDeleteFalse();
     int countAllByCategoryName(String name);
+    @Transactional
     @Modifying
-    @Query("DELETE FROM category WHERE id = :id")
-    int deleteById(@Param("id") int id);
-    @Modifying
-    @Query(value = "update category set categoryName=:categoryName where id=:id", nativeQuery = true)
-    int update(@Param("id") int id);
+    @Query("update category c set c.isDelete = true WHERE c.id = :id")
+    int deleteCategory(@Param("id") int id);
+
 }

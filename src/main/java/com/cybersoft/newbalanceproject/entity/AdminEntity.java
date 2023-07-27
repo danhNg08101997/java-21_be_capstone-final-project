@@ -14,16 +14,6 @@ public class AdminEntity {
     private String password;
     @Column(name = "fullname")
     private String fullname;
-    @Column(name = "is_delete")
-    private boolean isDelete;
-
-    public boolean isDelete() {
-        return isDelete;
-    }
-
-    public void setDelete(boolean delete) {
-        isDelete = delete;
-    }
 
     public String getUsername() {
         return username;
@@ -49,4 +39,15 @@ public class AdminEntity {
     public void setAdminId(int adminId) {
         this.adminId = adminId;
     }
+
+//    @Column(name = "is_delete")
+//    private boolean isDelete;
+//
+//    public boolean isDelete() {
+//        return isDelete;
+//    }
+//
+//    public void setDelete(boolean delete) {
+//        isDelete = delete;
+//    }
 }

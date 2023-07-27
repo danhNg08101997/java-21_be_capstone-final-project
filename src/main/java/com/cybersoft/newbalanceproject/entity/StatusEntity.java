@@ -13,19 +13,9 @@ public class StatusEntity {
     private int statusId;
     @Column(name="status_name")
     private String statusName;
-    @Column(name = "is_delete")
-    private boolean isDelete;
     @OneToMany(mappedBy = "status")
     @JsonIgnore
     private Set<TransactionEntity> transactions;
-
-    public boolean isDelete() {
-        return isDelete;
-    }
-
-    public void setDelete(boolean delete) {
-        isDelete = delete;
-    }
 
     public Set<TransactionEntity> getTransactions() {
         return transactions;
@@ -50,4 +40,15 @@ public class StatusEntity {
     public void setStatusName(String statusName) {
         this.statusName = statusName;
     }
+
+//    @Column(name = "is_delete")
+//    private boolean isDelete;
+//
+//    public boolean isDelete() {
+//        return isDelete;
+//    }
+//
+//    public void setDelete(boolean delete) {
+//        isDelete = delete;
+//    }
 }

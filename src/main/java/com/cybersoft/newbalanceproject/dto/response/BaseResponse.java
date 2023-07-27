@@ -28,4 +28,20 @@ public class BaseResponse {
     public void setData(Object data) {
         this.data = data;
     }
+
+    public BaseResponse(){
+        this.data=null;
+        this.message=null;
+        this.statusCode=0;
+    }
+    public BaseResponse(Object data){this.data=data;}
+    public BaseResponse(String message, int statusCode){
+        this.message = message;
+        this.statusCode = statusCode;
+    }
+    public BaseResponse(Object data, String message, int statusCode){
+        this.data=data;
+        this.message=message;
+        this.statusCode=statusCode;
+    }
 }
