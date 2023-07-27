@@ -40,14 +40,14 @@ public class AdminEntity {
         this.adminId = adminId;
     }
 
-//    @Column(name = "is_delete")
-//    private boolean isDelete;
-//
-//    public boolean isDelete() {
-//        return isDelete;
-//    }
-//
-//    public void setDelete(boolean delete) {
-//        isDelete = delete;
-//    }
+    @Column(name = "is_delete")
+    private boolean isDelete;
+
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
+    }
 }

@@ -96,7 +96,9 @@ public class CategoryServiceImp implements ICategoryService {
         BaseResponse response = new BaseResponse();
         CategoryEntity entity = new CategoryEntity();
         repository.getReferenceById(request.getId());
+            entity.setId(request.getId());
             entity.setCategoryName(request.getName());
+            entity.setDelete(request.isDelete());
             repository.save(entity);
             if(entity != null){
                 response.setStatusCode(HttpStatus.OK.value());

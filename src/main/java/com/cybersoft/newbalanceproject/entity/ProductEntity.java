@@ -22,6 +22,17 @@ public class ProductEntity {
     @OneToMany(mappedBy = "productOfSupport")
     @JsonIgnore
     private Set<GDVProductEntity> gdvProducts;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private CategoryEntity category;
+
+    public CategoryEntity getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
+    }
 
     public Set<GDVProductEntity> getGdvProducts() {
         return gdvProducts;
@@ -63,14 +74,14 @@ public class ProductEntity {
         this.transactions = transactions;
     }
 
-//    @Column(name = "is_delete")
-//    private boolean isDelete;
-//
-//    public boolean isDelete() {
-//        return isDelete;
-//    }
-//
-//    public void setDelete(boolean delete) {
-//        isDelete = delete;
-//    }
+    @Column(name = "is_delete")
+    private boolean isDelete;
+
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
+    }
 }

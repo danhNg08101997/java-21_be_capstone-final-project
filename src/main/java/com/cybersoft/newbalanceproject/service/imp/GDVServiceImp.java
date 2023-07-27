@@ -75,6 +75,7 @@ public class GDVServiceImp implements IGDVService {
         repository.getReferenceById(request.getId());
         entity.setGdvId(request.getId());
         entity.setUsername(request.getUsername());
+        entity.setPassword(request.getPassword());
         entity.setFullname(request.getFullname());
         entity.setAvailable(request.isAvailable());
         entity.setDelete(request.isDelete());
