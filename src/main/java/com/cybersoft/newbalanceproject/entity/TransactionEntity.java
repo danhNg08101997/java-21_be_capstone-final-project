@@ -28,8 +28,6 @@ public class TransactionEntity {
     private Date startTime;
     @Column(name = "end_time")
     private Date endTime;
-    @Column(name = "is_delete")
-    private boolean isDelete;
     @OneToMany(mappedBy = "transaction")
     @JsonIgnore
     private Set<TicketEntitty> tickets;
@@ -90,14 +88,6 @@ public class TransactionEntity {
         this.endTime = endTime;
     }
 
-    public boolean isDelete() {
-        return isDelete;
-    }
-
-    public void setDelete(boolean delete) {
-        isDelete = delete;
-    }
-
     public Set<TicketEntitty> getTicket() {
         return tickets;
     }
@@ -105,4 +95,14 @@ public class TransactionEntity {
     public void setTicket(Set<TicketEntitty> ticket) {
         this.tickets = ticket;
     }
+
+//    @Column(name = "is_delete")
+//    private boolean isDelete;
+//
+//    public boolean isDelete() {
+//        return isDelete;
+//    }
+//    public void setDelete(boolean delete) {
+//        isDelete = delete;
+//    }
 }

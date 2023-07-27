@@ -13,8 +13,6 @@ public class TicketEntitty {
     private String message;
     @Column(name = "create_at")
     private Date create;
-    @Column(name = "is_delete")
-    private boolean isDelete;
     @ManyToOne
     @JoinColumn(name = "transaction_id")
     private TransactionEntity transaction;
@@ -46,14 +44,6 @@ public class TicketEntitty {
         this.create = create;
     }
 
-    public boolean isDelete() {
-        return isDelete;
-    }
-
-    public void setDelete(boolean delete) {
-        isDelete = delete;
-    }
-
     public TransactionEntity getTransaction() {
         return transaction;
     }
@@ -69,4 +59,15 @@ public class TicketEntitty {
     public void setGdvOfTicket(GDVEntity gdvOfTicket) {
         this.gdvOfTicket = gdvOfTicket;
     }
+
+//    @Column(name = "is_delete")
+//    private boolean isDelete;
+//
+//    public boolean isDelete() {
+//        return isDelete;
+//    }
+//
+//    public void setDelete(boolean delete) {
+//        isDelete = delete;
+//    }
 }

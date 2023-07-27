@@ -16,8 +16,6 @@ public class ProductEntity {
     private String productName;
     @Column(name = "product_desc")
     private String productDesc;
-    @Column(name = "is_delete")
-    private boolean isDelete;
     @OneToMany(mappedBy = "product")
     @JsonIgnore
     private Set<TransactionEntity> transactions;
@@ -57,14 +55,6 @@ public class ProductEntity {
         this.productDesc = productDesc;
     }
 
-    public boolean isDelete() {
-        return isDelete;
-    }
-
-    public void setDelete(boolean delete) {
-        isDelete = delete;
-    }
-
     public Set<TransactionEntity> getTransactions() {
         return transactions;
     }
@@ -72,4 +62,15 @@ public class ProductEntity {
     public void setTransactions(Set<TransactionEntity> transactions) {
         this.transactions = transactions;
     }
+
+//    @Column(name = "is_delete")
+//    private boolean isDelete;
+//
+//    public boolean isDelete() {
+//        return isDelete;
+//    }
+//
+//    public void setDelete(boolean delete) {
+//        isDelete = delete;
+//    }
 }

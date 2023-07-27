@@ -2,7 +2,7 @@ package com.cybersoft.newbalanceproject.controller;
 
 import com.cybersoft.newbalanceproject.dto.request.CategoryRequest;
 import com.cybersoft.newbalanceproject.dto.response.BaseResponse;
-import com.cybersoft.newbalanceproject.dto.response.CategoryResponse;
+import com.cybersoft.newbalanceproject.entity.CategoryEntity;
 import com.cybersoft.newbalanceproject.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,5 +48,4 @@ public class CategoryController {
     public ResponseEntity<BaseResponse>edit(@RequestBody CategoryRequest request){
             return new ResponseEntity<>(service.editCategory(request), HttpStatus.OK);
         }
-
 }
