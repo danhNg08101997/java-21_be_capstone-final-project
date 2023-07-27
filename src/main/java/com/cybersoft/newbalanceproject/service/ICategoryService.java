@@ -9,6 +9,6 @@ import java.util.List;
 public interface ICategoryService {
     List<CategoryEntity> getAllCategories();
     boolean addCategory(CategoryRequest request);
-    BaseResponse deleteCategory(int id);
+    BaseResponse deleteCategory(CategoryRequest request);
     BaseResponse editCategory(CategoryRequest request);
 }

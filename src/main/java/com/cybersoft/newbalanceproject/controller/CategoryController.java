@@ -18,7 +18,7 @@ public class CategoryController {
         @PostMapping("")
     public ResponseEntity<BaseResponse> getAllCategories(){
         BaseResponse baseResponse = new BaseResponse();
-        baseResponse.setStatusCode(200);
+        baseResponse.setStatusCode(HttpStatus.OK.value());
         baseResponse.setData(service.getAllCategories());
         return new ResponseEntity<>(baseResponse, HttpStatus.OK);
     }
@@ -41,8 +41,8 @@ public class CategoryController {
         }
 
         @PostMapping("/delete")
-    public ResponseEntity<BaseResponse>delete(@RequestParam int id){
-            return new ResponseEntity<>(service.deleteCategory(id),HttpStatus.OK);
+    public ResponseEntity<BaseResponse>delete(@RequestBody CategoryRequest request){
+            return new ResponseEntity<>(service.deleteCategory(request),HttpStatus.OK);
         }
         @PostMapping("/edit")
     public ResponseEntity<BaseResponse>edit(@RequestBody CategoryRequest request){

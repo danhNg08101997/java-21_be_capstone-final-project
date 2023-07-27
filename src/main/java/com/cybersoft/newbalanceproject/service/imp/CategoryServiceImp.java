@@ -77,9 +77,9 @@ public class CategoryServiceImp implements ICategoryService {
     }
 
     @Override
-    public BaseResponse deleteCategory(int id) {
+    public BaseResponse deleteCategory(CategoryRequest request) {
         BaseResponse baseResponse = new BaseResponse();
-            int countDelete = repository.deleteCategory(id);
+            int countDelete = repository.deleteCategory(request.getId());
             if (countDelete > 0){
                 baseResponse.setStatusCode(HttpStatus.OK.value());
                 baseResponse.setMessage("Xoá thành công");

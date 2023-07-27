@@ -3,7 +3,6 @@ package com.cybersoft.newbalanceproject.controller;
 import com.cybersoft.newbalanceproject.dto.request.SignUpRequest;
 import com.cybersoft.newbalanceproject.dto.response.BaseResponse;
 import com.cybersoft.newbalanceproject.service.ICustomerService;
-import com.cybersoft.newbalanceproject.service.imp.CustomerServiceImp;
 import com.cybersoft.newbalanceproject.utils.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
