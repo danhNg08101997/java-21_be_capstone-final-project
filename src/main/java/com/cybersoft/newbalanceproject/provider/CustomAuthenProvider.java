@@ -44,7 +44,7 @@ public class CustomAuthenProvider implements AuthenticationProvider {
             return new UsernamePasswordAuthenticationToken(username, admin.getPassword(), List.of(authority));
         };
         // Kiểm tra đăng nhập customer
-        CustomerEntity customer = customerRepository.findByUsername(username);
+        CustomerEntity customer = customerRepository.findByUsernameAndIsNotDelete(username);
         if(customer != null && passwordEncoder.matches(password, customer.getPassword())){
             SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_CUSTOMER");
             // Đăng nhập thành công

@@ -11,6 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+import java.util.List;
+
 @Repository
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Integer> {
     List<CategoryEntity> findByIsDeleteFalse();

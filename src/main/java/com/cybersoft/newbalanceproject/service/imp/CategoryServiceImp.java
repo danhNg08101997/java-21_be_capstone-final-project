@@ -36,6 +36,7 @@ public class CategoryServiceImp implements ICategoryService {
 
         }else {
             System.out.println("Không có giá trị trên redis");
+
             List<CategoryEntity> list = repository.findByIsDeleteFalse();
 
             for (CategoryEntity data: list) {

@@ -4,6 +4,7 @@ import com.cybersoft.newbalanceproject.utils.JwtHelper;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -32,8 +33,9 @@ public class JwtFilter extends OncePerRequestFilter {
                 Claims claims = jwtHelper.decodeToken(token);
                 if(claims != null){
                     // Tạo chứng thực cho Security
+                    String role = claims.getSubject();
                     SecurityContext context = SecurityContextHolder.getContext();
-                    UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken("", "", new ArrayList<>());
+                    UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(null, null, AuthorityUtils.createAuthorityList(role));
                     context.setAuthentication(userToken);
                 }
             }
