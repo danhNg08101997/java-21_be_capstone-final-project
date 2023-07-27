@@ -1,36 +1,22 @@
 package com.cybersoft.newbalanceproject.service.imp;
 
+import com.cybersoft.newbalanceproject.dto.request.CustomerRequest;
 import com.cybersoft.newbalanceproject.dto.request.SignUpRequest;
-<<<<<<< HEAD
 import com.cybersoft.newbalanceproject.dto.response.BaseResponse;
-import com.cybersoft.newbalanceproject.dto.response.CategoryResponse;
-import com.cybersoft.newbalanceproject.dto.response.CustomerRespone;
-=======
-import com.cybersoft.newbalanceproject.dto.response.CustomerDTO;
->>>>>>> 6d096f8dcc5d6b04760ac6f8be0c6f417578fd4c
 import com.cybersoft.newbalanceproject.entity.CustomerEntity;
 import com.cybersoft.newbalanceproject.repository.CustomerRepository;
 import com.cybersoft.newbalanceproject.service.ICustomerService;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
-import java.lang.reflect.Type;
-=======
->>>>>>> 6d096f8dcc5d6b04760ac6f8be0c6f417578fd4c
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CustomerServiceImp implements ICustomerService {
     @Autowired
     private PasswordEncoder passwordEncoder;
-    @Autowired
-    private RedisTemplate redis;
     @Autowired
     private CustomerRepository repository;
     @Override
@@ -45,7 +31,7 @@ public class CustomerServiceImp implements ICustomerService {
             customer.setPriority(false);
             // Kiểm tra trùng
             int countUsername = repository.countByUsername(request.getUsername());
-            if(countUsername>0){
+            if(countUsername > 0){
                 return isSuccess;
             }
             // Thêm admin
@@ -58,58 +44,53 @@ public class CustomerServiceImp implements ICustomerService {
     }
 
     @Override
-<<<<<<< HEAD
-    public List<CustomerRespone> findAllByIsNotDelete() {
-        List<CustomerRespone> respones = new ArrayList<>();
-        if(redis.hasKey("listCustomer")){
-//            Nếu như có thì lấy giá trị lưu trữ lên redis
-            System.out.println("Có giá trị trên redis");
-            String data = redis.opsForValue().get("listCustomer").toString();
+    public List<CustomerEntity> getAllCustomers() {
+        return repository.findByIsDeleteFalse();
+    }
 
-            Type listType = new TypeToken<ArrayList<CustomerRespone>>(){}.getType();
-            respones = new Gson().fromJson(data, listType);
+    @Override
+    public BaseResponse deleteCustomer(CustomerRequest request) {
+        BaseResponse baseResponse = new BaseResponse();
+        int countDeleteCustomer = repository.deleteCustomer(request.getId());
+        if(countDeleteCustomer > 0){
+            baseResponse.setStatusCode(HttpStatus.OK.value());
+            baseResponse.setMessage("Xoá thành công");
+            baseResponse.setData(countDeleteCustomer);
 
         }else {
-            System.out.println("Không có giá trị trên redis");
-            List<CustomerEntity> list = repository.findAllByIsNotDelete();
-
-            for (CustomerEntity data: list) {
-                CustomerRespone customerRespone = new CustomerRespone();
-                customerRespone.setId(data.getCustomerId());
-                customerRespone.setCustomer_name(data.getUsername());
-                customerRespone.setIs_priority(data.isPriority());
-                customerRespone.setFullname(data.getFullname());
-                respones.add(customerRespone);
-            }
-            Gson gson = new Gson();
-            String data = gson.toJson(respones);
-
-            redis.opsForValue().set("listCustomer", data);
+            baseResponse.setStatusCode(HttpStatus.BAD_REQUEST.value());
+            baseResponse.setMessage("Xoá thất bại");
+            return baseResponse;
         }
-        return respones;
+
+        return baseResponse;
     }
+
     @Override
-    public BaseResponse deleteCustomer(int id){
-        BaseResponse response = new BaseResponse();
-        repository.setIsdeleteCustomer(id);
+    public BaseResponse editCustomer(CustomerRequest request) {
+        BaseResponse baseResponse = new BaseResponse();
+        CustomerEntity customer = new CustomerEntity();
+        repository.getReferenceById(request.getId());
 
-            response.setMessage("Xóa Thành Công");
-            response.setStatusCode(200);
-            response.setData(true);
+        customer.setCustomerId(request.getId());
+        customer.setUsername(request.getUsername());
+        customer.setPassword(request.getPassword());
+        customer.setFullname(request.getFullname());
+        customer.setDelete(request.isDelete());
+        customer.setPriority(request.isPriority());
 
-        return response;
-=======
-    public List<CustomerDTO> GetAllCustomer() {
-        List<CustomerEntity> entityList = repository.GetAllCustomer();
-        List<CustomerDTO> customerDTOList = new ArrayList<>();
-        for(CustomerEntity item : entityList) {
-            CustomerDTO customerDTO = new CustomerDTO();
-            customerDTO.setCustomerId(item.getCustomerId());
-            customerDTO.setUsername(item.getUsername());
-            customerDTO.setFullname(item.getFullname());
-            customerDTOList.add(customerDTO);
+        repository.save(customer);
+
+        if(customer != null){
+            baseResponse.setStatusCode(HttpStatus.OK.value());
+            baseResponse.setMessage("Cập nhật thành công");
+            baseResponse.setData(customer);
+        }else {
+            baseResponse.setStatusCode(HttpStatus.BAD_REQUEST.value());
+            baseResponse.setMessage("Cập nhật thất bại");
+            return baseResponse;
         }
-        return customerDTOList;
->>>>>>> 6d096f8dcc5d6b04760ac6f8be0c6f417578fd4c
+        return baseResponse;
     }
+
 }
