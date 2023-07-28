@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface ICustomerService {
     boolean addCustomer(SignUpRequest request);
-    List<CustomerEntity> getAllCustomers();
+    List<CustomerRespone> getAllCustomers();
     BaseResponse deleteCustomer(CustomerRequest request);
     BaseResponse editCustomer(CustomerRequest request);
 }

@@ -47,7 +47,6 @@ public class CategoryServiceImp implements ICategoryService {
             }
             Gson gson = new Gson();
             String data = gson.toJson(responseList);
-
             redis.opsForValue().set("listCategory", data);
         }
         return responseList;
@@ -70,6 +69,8 @@ public class CategoryServiceImp implements ICategoryService {
             }
             repository.save(response);
             isSuccess = true;
+            Gson gson = new Gson();
+            redis.opsForValue().set("listCategory",gson.toJson(repository.findByIsDeleteFalse()));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -88,6 +89,8 @@ public class CategoryServiceImp implements ICategoryService {
                 baseResponse.setStatusCode(HttpStatus.BAD_REQUEST.value());
                 baseResponse.setMessage("Xoá thất bại");
             }
+            Gson gson = new Gson();
+            redis.opsForValue().set("listCategory",gson.toJson(repository.findByIsDeleteFalse()));
             return baseResponse;
     }
 
@@ -108,7 +111,8 @@ public class CategoryServiceImp implements ICategoryService {
                 response.setStatusCode(HttpStatus.BAD_GATEWAY.value());
                 response.setMessage("Cập nhật thất bại");
             }
+        Gson gson = new Gson();
+        redis.opsForValue().set("listCategory",gson.toJson(repository.findByIsDeleteFalse()));
         return response;
-
     }
 }

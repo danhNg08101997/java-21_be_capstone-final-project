@@ -4,6 +4,7 @@ package com.cybersoft.newbalanceproject.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity(name = "product")
@@ -30,7 +31,7 @@ public class ProductEntity {
         return category;
     }
 
-    public void setCategory(CategoryEntity category) {
+    public void setCategory(Optional<CategoryEntity> category) {
         this.category = category;
     }
 

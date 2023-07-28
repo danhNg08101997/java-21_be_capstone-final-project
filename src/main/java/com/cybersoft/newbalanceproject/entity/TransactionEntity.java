@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity(name = "transactions")
@@ -44,7 +45,7 @@ public class TransactionEntity {
         return customer;
     }
 
-    public void setCustomer(CustomerEntity customer) {
+    public void setCustomer(Optional<CustomerEntity> customer) {
         this.customer = customer;
     }
 
@@ -52,7 +53,7 @@ public class TransactionEntity {
         return gdvOfTransaction;
     }
 
-    public void setGdvOfTransaction(GDVEntity gdvOfTransaction) {
+    public void setGdvOfTransaction(Optional<GDVEntity> gdvOfTransaction) {
         this.gdvOfTransaction = gdvOfTransaction;
     }
 
@@ -60,7 +61,7 @@ public class TransactionEntity {
         return product;
     }
 
-    public void setProduct(ProductEntity product) {
+    public void setProduct(Optional<ProductEntity> product) {
         this.product = product;
     }
 
@@ -68,7 +69,7 @@ public class TransactionEntity {
         return status;
     }
 
-    public void setStatus(StatusEntity status) {
+    public void setStatus(Optional<StatusEntity> status) {
         this.status = status;
     }
 
