@@ -45,7 +45,7 @@ public class TransactionEntity {
         return customer;
     }
 
-    public void setCustomer(Optional<CustomerEntity> customer) {
+    public void setCustomer(CustomerEntity customer) {
         this.customer = customer;
     }
 
@@ -53,7 +53,7 @@ public class TransactionEntity {
         return gdvOfTransaction;
     }
 
-    public void setGdvOfTransaction(Optional<GDVEntity> gdvOfTransaction) {
+    public void setGdvOfTransaction(GDVEntity gdvOfTransaction) {
         this.gdvOfTransaction = gdvOfTransaction;
     }
 
@@ -61,7 +61,7 @@ public class TransactionEntity {
         return product;
     }
 
-    public void setProduct(Optional<ProductEntity> product) {
+    public void setProduct(ProductEntity product) {
         this.product = product;
     }
 
@@ -69,7 +69,7 @@ public class TransactionEntity {
         return status;
     }
 
-    public void setStatus(Optional<StatusEntity> status) {
+    public void setStatus(StatusEntity status) {
         this.status = status;
     }
 

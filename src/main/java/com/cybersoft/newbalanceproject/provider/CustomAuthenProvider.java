@@ -3,6 +3,7 @@ package com.cybersoft.newbalanceproject.provider;
 import com.cybersoft.newbalanceproject.entity.AdminEntity;
 import com.cybersoft.newbalanceproject.entity.CustomerEntity;
 import com.cybersoft.newbalanceproject.entity.GDVEntity;
+import com.cybersoft.newbalanceproject.repository.AdminRepository;
 import com.cybersoft.newbalanceproject.repository.StatusRepository;
 import com.cybersoft.newbalanceproject.repository.CustomerRepository;
 import com.cybersoft.newbalanceproject.repository.GDVRepository;
@@ -21,7 +22,7 @@ import java.util.List;
 @Service
 public class CustomAuthenProvider implements AuthenticationProvider {
     @Autowired
-    private StatusRepository adminRepository;
+    private AdminRepository adminRepository;
     @Autowired
     private CustomerRepository customerRepository;
     @Autowired

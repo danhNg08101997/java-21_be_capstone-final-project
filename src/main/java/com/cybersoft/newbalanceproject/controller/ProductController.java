@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/Product")
+@RequestMapping("/product")
 public class ProductController {
     @Autowired
     private IProductService productService;
@@ -43,7 +43,7 @@ public class ProductController {
         return new ResponseEntity<>(productService.deleteProduct(id),HttpStatus.OK);
     }
     @PostMapping("/edit")
-    public ResponseEntity<BaseResponse>edit(@RequestBody ProductRequest request){
+    public ResponseEntity<BaseResponse> editProduct(@RequestBody ProductRequest request){
         return new ResponseEntity<>(productService.editProduct(request), HttpStatus.OK);
     }
 }

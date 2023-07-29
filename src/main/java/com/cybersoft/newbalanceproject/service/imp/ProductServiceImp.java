@@ -2,10 +2,7 @@ package com.cybersoft.newbalanceproject.service.imp;
 
 import com.cybersoft.newbalanceproject.dto.request.ProductRequest;
 import com.cybersoft.newbalanceproject.dto.response.BaseResponse;
-import com.cybersoft.newbalanceproject.dto.response.CustomerRespone;
 import com.cybersoft.newbalanceproject.dto.response.ProductResponse;
-import com.cybersoft.newbalanceproject.entity.CategoryEntity;
-import com.cybersoft.newbalanceproject.entity.CustomerEntity;
 import com.cybersoft.newbalanceproject.entity.ProductEntity;
 import com.cybersoft.newbalanceproject.repository.CategoryRepository;
 import com.cybersoft.newbalanceproject.repository.ProductRepository;
@@ -66,10 +63,10 @@ public class ProductServiceImp implements IProductService {
             ProductEntity entity = new ProductEntity();
             entity.setProductName(product.getProduct_name());
             entity.setProductDesc(product.getProduct_desc());
-            entity.setCategory(categoryRepository.findById(product.getCategoryId()));
+            entity.setCategory(categoryRepository.findById(product.getCategoryId()).get());
             entity.setDelete(false);
             // Kiểm tra trùng
-            int countUsername = productRepository.countByProduct_name(product.getProduct_name());
+            int countUsername = productRepository.countByProductName(product.getProduct_name());
             if(countUsername > 0){
                 return isSuccess;
             }
@@ -109,7 +106,7 @@ public class ProductServiceImp implements IProductService {
         entity.setProductId(product.getProductId());
         entity.setProductName(product.getProduct_name());
         entity.setProductDesc(product.getProduct_desc());
-        entity.setCategory(categoryRepository.findById(product.getCategoryId()));
+        entity.setCategory(categoryRepository.findById(product.getCategoryId()).get());
         entity.setDelete(false);
         productRepository.save(entity);
         if(entity != null){

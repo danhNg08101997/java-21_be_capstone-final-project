@@ -1,12 +1,12 @@
 package com.cybersoft.newbalanceproject.service.imp;
 
-import com.cybersoft.newbalanceproject.dto.request.ProductRequest;
+
 import com.cybersoft.newbalanceproject.dto.request.TransactionRequest;
 import com.cybersoft.newbalanceproject.dto.response.BaseResponse;
-import com.cybersoft.newbalanceproject.dto.response.ProductResponse;
+
 import com.cybersoft.newbalanceproject.dto.response.TransactionResponse;
-import com.cybersoft.newbalanceproject.entity.ProductEntity;
-import com.cybersoft.newbalanceproject.entity.TransactionEntity;
+
+import com.cybersoft.newbalanceproject.entity.*;
 import com.cybersoft.newbalanceproject.repository.*;
 import com.cybersoft.newbalanceproject.service.ITransactionService;
 import com.google.gson.Gson;
@@ -19,9 +19,10 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class TransactionService implements ITransactionService {
-
     @Autowired
     private TransactionRepository transactionRepository;
     @Autowired
@@ -75,10 +76,14 @@ public class TransactionService implements ITransactionService {
         boolean isSuccess = false;
         try {
             TransactionEntity entity = new TransactionEntity();
-            entity.setCustomer(customerRepository.findById(transaction.getCustomerId()));
-            entity.setProduct(productRepository.findById(transaction.getProductId()));
-            entity.setGdvOfTransaction(gDVRepository.findById(transaction.getGdvId()));
-            entity.setStatus(statusRepository.findById(transaction.getStatusId()));
+            Optional<CustomerEntity> customerOpt = customerRepository.findById(transaction.getCustomerId());
+            Optional<GDVEntity> gdvOpt = gDVRepository.findById(transaction.getGdvId());
+            Optional<ProductEntity> productOpt = productRepository.findById(transaction.getProductId());
+            Optional<StatusEntity> statusOpt = statusRepository.findById(transaction.getStatusId());
+            entity.setCustomer(customerOpt.get());
+            entity.setGdvOfTransaction(gdvOpt.get());
+            entity.setProduct(productOpt.get());
+            entity.setStatus(statusOpt.get());
             entity.setStartTime(transaction.getStart_time());
             entity.setEndTime(transaction.getEnd_time());
             entity.setDelete(false);
@@ -115,10 +120,10 @@ public class TransactionService implements ITransactionService {
         BaseResponse response = new BaseResponse();
         TransactionEntity entity = new TransactionEntity();
         transactionRepository.getReferenceById(transactionRequest.getTransId());
-        entity.setProduct(productRepository.findById(transactionRequest.getProductId()));
-        entity.setCustomer(customerRepository.findById(transactionRequest.getCustomerId()));
-        entity.setStatus(statusRepository.findById(transactionRequest.getGdvId()));
-        entity.setGdvOfTransaction(gDVRepository.findById(transactionRequest.getGdvId()));
+        entity.setProduct(productRepository.findById(transactionRequest.getProductId()).get());
+        entity.setCustomer(customerRepository.findById(transactionRequest.getCustomerId()).get());
+        entity.setStatus(statusRepository.findById(transactionRequest.getGdvId()).get());
+        entity.setGdvOfTransaction(gDVRepository.findById(transactionRequest.getGdvId()).get());
         entity.setStartTime(transactionRequest.getStart_time());
         entity.setEndTime(transactionRequest.getEnd_time());
         entity.setDelete(false);

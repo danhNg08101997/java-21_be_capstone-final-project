@@ -31,7 +31,7 @@ public class ProductEntity {
         return category;
     }
 
-    public void setCategory(Optional<CategoryEntity> category) {
+    public void setCategory(CategoryEntity category) {
         this.category = category;
     }
 

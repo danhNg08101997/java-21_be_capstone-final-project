@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
-    int countByProduct_name(String name);
+    int countByProductName(String name);
     List<ProductEntity> findByIsDeleteFalse();
     @Transactional
     @Modifying
