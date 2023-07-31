@@ -16,7 +16,7 @@ public class CustomerController {
     @Autowired
     private ICustomerService customerService;
 
-    @PostMapping("")
+    @PostMapping(value = "",consumes = "application/json", produces = "application/json")
     public ResponseEntity<BaseResponse> getAllCustomer() {
         BaseResponse response = new BaseResponse();
         response.setStatusCode(HttpStatus.OK.value());
@@ -24,12 +24,12 @@ public class CustomerController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<BaseResponse> deleteCustomer(@RequestBody CustomerRequest request ){
         return new ResponseEntity<>(customerService.deleteCustomer(request),HttpStatus.OK);
     }
 
-    @PostMapping("/edit")
+    @PostMapping(value = "/edit", consumes = "application/json", produces = "application/json")
     public ResponseEntity<BaseResponse>edit(@RequestBody CustomerRequest request){
         return new ResponseEntity<>(customerService.editCustomer(request), HttpStatus.OK);
     }

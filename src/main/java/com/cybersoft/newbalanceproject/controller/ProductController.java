@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
     @Autowired
     private IProductService productService;
-    @PostMapping("")
+    @PostMapping(value = "",consumes = "application/json", produces = "application/json")
     public ResponseEntity<BaseResponse> getAllproduct(){
         BaseResponse response = new BaseResponse();
         response.setMessage("Thành công");
@@ -23,7 +23,7 @@ public class ProductController {
         response.setData(productService.getAllProduct());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @PostMapping("/create")
+    @PostMapping(value = "/create",consumes = "application/json", produces = "application/json")
     public ResponseEntity<BaseResponse> createproduct(@RequestBody ProductRequest productRequest){
         boolean issuccess = productService.addProduct(productRequest);
         BaseResponse response = new BaseResponse();
@@ -38,11 +38,11 @@ public class ProductController {
         }
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete",consumes = "application/json", produces = "application/json")
     public ResponseEntity<BaseResponse> deleteProduct(@RequestParam int id){
         return new ResponseEntity<>(productService.deleteProduct(id),HttpStatus.OK);
     }
-    @PostMapping("/edit")
+    @PostMapping(value = "/edit",consumes = "application/json", produces = "application/json")
     public ResponseEntity<BaseResponse> editProduct(@RequestBody ProductRequest request){
         return new ResponseEntity<>(productService.editProduct(request), HttpStatus.OK);
     }

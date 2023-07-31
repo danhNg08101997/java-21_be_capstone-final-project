@@ -1,23 +1,14 @@
 package com.cybersoft.newbalanceproject.service.imp;
 
-
 import com.cybersoft.newbalanceproject.dto.request.TransactionRequest;
 import com.cybersoft.newbalanceproject.dto.response.BaseResponse;
-
-import com.cybersoft.newbalanceproject.dto.response.TransactionResponse;
-
 import com.cybersoft.newbalanceproject.entity.*;
 import com.cybersoft.newbalanceproject.repository.*;
 import com.cybersoft.newbalanceproject.service.ITransactionService;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,10 +16,6 @@ import java.util.Optional;
 public class TransactionService implements ITransactionService {
     @Autowired
     private TransactionRepository transactionRepository;
-    @Autowired
-    private RedisTemplate redis;
-    @Autowired
-    private CategoryRepository categoryRepository;
     @Autowired
     private CustomerRepository customerRepository;
     @Autowired
@@ -39,37 +26,8 @@ public class TransactionService implements ITransactionService {
     private StatusRepository statusRepository;
 
     @Override
-    public List<TransactionResponse> getAllTransaction() {
-        List<TransactionResponse> responseList = new ArrayList<>();
-        if(redis.hasKey("listTransaction")){
-//            Nếu như có thì lấy giá trị lưu trữ lên redis
-            System.out.println("Có giá trị trên redis");
-            String data = redis.opsForValue().get("listTransaction").toString();
-
-            Type listType = new TypeToken<ArrayList<TransactionEntity>>(){}.getType();
-            responseList = new Gson().fromJson(data, listType);
-
-        }else {
-            System.out.println("Không có giá trị trên redis");
-
-            List<TransactionEntity> list = transactionRepository.findByIsDeleteFalse();
-
-            for (TransactionEntity data: list) {
-                TransactionResponse entity = new TransactionResponse();
-                entity.setTransId(data.getTransId());
-                entity.setCustomer(data.getCustomer());
-                entity.setProduct(data.getProduct());
-                entity.setStatus(data.getStatus());
-                entity.setGdvOfTransaction(data.getGdvOfTransaction());
-                entity.setStartTime(data.getStartTime());
-                entity.setEndTime(data.getEndTime());
-                responseList.add(entity);
-            }
-            Gson gson = new Gson();
-            String data = gson.toJson(responseList);
-            redis.opsForValue().set("listTransaction", data);
-        }
-        return responseList;
+    public List<TransactionEntity> getAllTransaction() {
+        return transactionRepository.findByIsDeleteFalse();
     }
     @Override
     public boolean addTransaction(TransactionRequest transaction) {
@@ -87,14 +45,12 @@ public class TransactionService implements ITransactionService {
             entity.setStartTime(transaction.getStart_time());
             entity.setEndTime(transaction.getEnd_time());
             entity.setDelete(false);
-            // Thêm admin
+            // Thêm transaction
             transactionRepository.save(entity);
             isSuccess = true;
         }catch (Exception e){
             e.printStackTrace();
         }
-        Gson gson = new Gson();
-        redis.opsForValue().set("listTransaction",gson.toJson(transactionRepository.findByIsDeleteFalse()));
         return isSuccess;
     }
 
@@ -110,8 +66,6 @@ public class TransactionService implements ITransactionService {
             baseResponse.setStatusCode(HttpStatus.BAD_REQUEST.value());
             baseResponse.setMessage("Xoá thất bại");
         }
-        Gson gson = new Gson();
-        redis.opsForValue().set("listTransaction",gson.toJson(transactionRepository.findByIsDeleteFalse()));
         return baseResponse;
     }
 
@@ -136,8 +90,6 @@ public class TransactionService implements ITransactionService {
             response.setStatusCode(HttpStatus.BAD_GATEWAY.value());
             response.setMessage("Cập nhật thất bại");
         }
-        Gson gson = new Gson();
-        redis.opsForValue().set("listTransaction",gson.toJson(transactionRepository.findByIsDeleteFalse()));
         return response;
     }
 }
