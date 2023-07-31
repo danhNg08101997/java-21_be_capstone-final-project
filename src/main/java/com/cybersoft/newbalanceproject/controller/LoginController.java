@@ -22,13 +22,12 @@ public class LoginController {
     @Autowired
     private ICustomerService customerService;
 
-
-    @RequestMapping(value = "/signin", method = RequestMethod.POST)
+    @RequestMapping(value = "/signin", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<BaseResponse>signIn(
-            @RequestParam String username,
-            @RequestParam String password
+            @RequestBody SignUpRequest request
     ){
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword());
         UsernamePasswordAuthenticationToken newtoken = (UsernamePasswordAuthenticationToken) authenticationManager.authenticate(token);
         String jwt = jwtHelper.generateToken(String.valueOf(newtoken.getAuthorities().stream().findFirst().orElse(null)));
         BaseResponse response = new BaseResponse();
@@ -37,7 +36,7 @@ public class LoginController {
         response.setData(jwt);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    @RequestMapping(value = "/signup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public ResponseEntity<BaseResponse> signup(@Valid @RequestBody SignUpRequest signupRequest){
         boolean isSuccess = customerService.addCustomer(signupRequest);
         BaseResponse response = new BaseResponse();

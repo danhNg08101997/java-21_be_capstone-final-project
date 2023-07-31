@@ -1,9 +1,7 @@
 package com.cybersoft.newbalanceproject.controller;
 
-import com.cybersoft.newbalanceproject.dto.request.ProductRequest;
 import com.cybersoft.newbalanceproject.dto.request.TransactionRequest;
 import com.cybersoft.newbalanceproject.dto.response.BaseResponse;
-import com.cybersoft.newbalanceproject.service.IProductService;
 import com.cybersoft.newbalanceproject.service.ITransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class TransactionController {
     @Autowired
     private ITransactionService transaction;
-    @PostMapping("")
+    @PostMapping(value = "",consumes = "application/json", produces = "application/json")
     public ResponseEntity<BaseResponse> getAllTransaction(){
         BaseResponse response = new BaseResponse();
         response.setMessage("Thành công");
@@ -23,7 +21,7 @@ public class TransactionController {
         response.setData(transaction.getAllTransaction());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @PostMapping("/create")
+    @PostMapping(value = "/create",consumes = "application/json", produces = "application/json")
     public ResponseEntity<BaseResponse> createproduct(@RequestBody TransactionRequest transactionRequest){
         boolean issuccess = transaction.addTransaction(transactionRequest);
         BaseResponse response = new BaseResponse();
@@ -38,11 +36,11 @@ public class TransactionController {
         }
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete",consumes = "application/json", produces = "application/json")
     public ResponseEntity<BaseResponse> deleteTransaction(@RequestParam int id){
         return new ResponseEntity<>(transaction.deleteTransaction(id),HttpStatus.OK);
     }
-    @PostMapping("/edit")
+    @PostMapping(value = "/edit",consumes = "application/json", produces = "application/json")
     public ResponseEntity<BaseResponse>editTransaction(@RequestBody TransactionRequest request){
         return new ResponseEntity<>(transaction.editTransaction(request), HttpStatus.OK);
     }

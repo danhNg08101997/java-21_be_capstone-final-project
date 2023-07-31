@@ -15,7 +15,7 @@ public class CategoryController {
     @Autowired
         private ICategoryService service;
 
-        @PostMapping("")
+        @PostMapping(value = "", consumes = "application/json", produces = "application/json")
     public ResponseEntity<BaseResponse> getAllCategories(){
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setStatusCode(HttpStatus.OK.value());
@@ -23,7 +23,7 @@ public class CategoryController {
         return new ResponseEntity<>(baseResponse, HttpStatus.OK);
     }
 
-        @PostMapping ("/create")
+        @PostMapping (value = "/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<BaseResponse> create(@RequestBody CategoryRequest request){
         boolean isSuccess = service.addCategory(request);
         BaseResponse response = new BaseResponse();
@@ -40,11 +40,11 @@ public class CategoryController {
             return new ResponseEntity<>(response,HttpStatus.OK);
         }
 
-        @PostMapping("/delete")
+        @PostMapping(value = "/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<BaseResponse>delete(@RequestBody CategoryRequest request){
             return new ResponseEntity<>(service.deleteCategory(request),HttpStatus.OK);
         }
-        @PostMapping("/edit")
+        @PostMapping(value = "/edit", consumes = "application/json", produces = "application/json")
     public ResponseEntity<BaseResponse>edit(@RequestBody CategoryRequest request){
             return new ResponseEntity<>(service.editCategory(request), HttpStatus.OK);
         }

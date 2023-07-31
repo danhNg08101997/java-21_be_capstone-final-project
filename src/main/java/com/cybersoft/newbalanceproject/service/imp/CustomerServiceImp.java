@@ -4,7 +4,6 @@ import com.cybersoft.newbalanceproject.dto.request.CustomerRequest;
 import com.cybersoft.newbalanceproject.dto.request.SignUpRequest;
 import com.cybersoft.newbalanceproject.dto.response.BaseResponse;
 import com.cybersoft.newbalanceproject.dto.response.CustomerRespone;
-import com.cybersoft.newbalanceproject.entity.CategoryEntity;
 import com.cybersoft.newbalanceproject.entity.CustomerEntity;
 import com.cybersoft.newbalanceproject.repository.CustomerRepository;
 import com.cybersoft.newbalanceproject.service.ICustomerService;
@@ -38,51 +37,21 @@ public class CustomerServiceImp implements ICustomerService {
             customer.setPassword(passwordEncoder.encode(request.getPassword()));
             customer.setDelete(false);
             customer.setPriority(false);
-            // Kiểm tra trùng
             int countUsername = repository.countByUsername(request.getUsername());
             if(countUsername > 0){
                 return isSuccess;
             }
-            // Thêm admin
             repository.save(customer);
             isSuccess = true;
         }catch (Exception e){
             e.printStackTrace();
         }
-        Gson gson = new Gson();
-        redis.opsForValue().set("listCustomer",gson.toJson(repository.findByIsDeleteFalse()));
         return isSuccess;
     }
 
     @Override
-    public List<CustomerRespone> getAllCustomers() {
-        List<CustomerRespone> responseList = new ArrayList<>();
-        if(redis.hasKey("listCustomer")){
-//            Nếu như có thì lấy giá trị lưu trữ lên redis
-            System.out.println("Có giá trị trên redis");
-            String data = redis.opsForValue().get("listCustomer").toString();
-
-            Type listType = new TypeToken<ArrayList<CustomerEntity>>(){}.getType();
-            responseList = new Gson().fromJson(data, listType);
-
-        }else {
-            System.out.println("Không có giá trị trên redis");
-
-            List<CustomerEntity> list = repository.findByIsDeleteFalse();
-
-            for (CustomerEntity data: list) {
-                CustomerRespone entity = new CustomerRespone();
-                entity.setId(data.getCustomerId());
-                entity.setFullname(data.getFullname());
-                entity.setCustomer_name(data.getUsername());
-                entity.setIs_priority(data.isPriority());
-                responseList.add(entity);
-            }
-            Gson gson = new Gson();
-            String data = gson.toJson(responseList);
-            redis.opsForValue().set("listCustomer", data);
-        }
-        return responseList;
+    public List<CustomerEntity> getAllCustomers() {
+        return repository.findByIsDeleteFalse();
     }
 
     @Override
@@ -99,8 +68,6 @@ public class CustomerServiceImp implements ICustomerService {
             baseResponse.setMessage("Xoá thất bại");
             return baseResponse;
         }
-        Gson gson = new Gson();
-        redis.opsForValue().set("listCustomer",gson.toJson(repository.findByIsDeleteFalse()));
         return baseResponse;
     }
 
@@ -128,8 +95,6 @@ public class CustomerServiceImp implements ICustomerService {
             baseResponse.setMessage("Cập nhật thất bại");
             return baseResponse;
         }
-        Gson gson = new Gson();
-        redis.opsForValue().set("listCustomer",gson.toJson(repository.findByIsDeleteFalse()));
         return baseResponse;
     }
 }

@@ -30,10 +30,8 @@ public class CategoryServiceImp implements ICategoryService {
 //            Nếu như có thì lấy giá trị lưu trữ lên redis
             System.out.println("Có giá trị trên redis");
             String data = redis.opsForValue().get("listCategory").toString();
-
             Type listType = new TypeToken<ArrayList<CategoryEntity>>(){}.getType();
             responseList = new Gson().fromJson(data, listType);
-
         }else {
             System.out.println("Không có giá trị trên redis");
 
@@ -69,8 +67,6 @@ public class CategoryServiceImp implements ICategoryService {
             }
             repository.save(response);
             isSuccess = true;
-            Gson gson = new Gson();
-            redis.opsForValue().set("listCategory",gson.toJson(repository.findByIsDeleteFalse()));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -89,8 +85,6 @@ public class CategoryServiceImp implements ICategoryService {
                 baseResponse.setStatusCode(HttpStatus.BAD_REQUEST.value());
                 baseResponse.setMessage("Xoá thất bại");
             }
-            Gson gson = new Gson();
-            redis.opsForValue().set("listCategory",gson.toJson(repository.findByIsDeleteFalse()));
             return baseResponse;
     }
 
@@ -102,17 +96,15 @@ public class CategoryServiceImp implements ICategoryService {
             entity.setId(request.getId());
             entity.setCategoryName(request.getName());
             entity.setDelete(request.isDelete());
-            repository.save(entity);
             if(entity != null){
                 response.setStatusCode(HttpStatus.OK.value());
                 response.setMessage("Cập nhật thành công");
                 response.setData(entity);
+                repository.save(entity);
             }else {
                 response.setStatusCode(HttpStatus.BAD_GATEWAY.value());
                 response.setMessage("Cập nhật thất bại");
             }
-        Gson gson = new Gson();
-        redis.opsForValue().set("listCategory",gson.toJson(repository.findByIsDeleteFalse()));
-        return response;
+            return response;
     }
 }

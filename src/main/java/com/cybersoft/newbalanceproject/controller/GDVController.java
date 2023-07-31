@@ -18,14 +18,14 @@ public class GDVController {
     @Autowired
     private IGDVService service;
 
-    @PostMapping("")
+    @PostMapping(value = "",consumes = "application/json", produces = "application/json")
     ResponseEntity<BaseResponse>getGDVs(){
         BaseResponse response = new BaseResponse();
         response.setData(this.service.getAll());
         response.setStatusCode(HttpStatus.OK.value());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @PostMapping("/create")
+    @PostMapping(value = "/create",consumes = "application/json", produces = "application/json")
     ResponseEntity<BaseResponse>createGDV(@RequestBody GDVRequest request){
         boolean isSuccess = service.addGDV(request);
         BaseResponse response = new BaseResponse();
@@ -40,11 +40,11 @@ public class GDVController {
         }
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete",consumes = "application/json", produces = "application/json")
     ResponseEntity<BaseResponse>deleteGDV(@RequestBody GDVRequest request){
         return new ResponseEntity<>(this.service.deleteGDV(request.getId()),HttpStatus.OK );
     }
-    @PostMapping("/edit")
+    @PostMapping(value = "/edit",consumes = "application/json", produces = "application/json")
     ResponseEntity<BaseResponse>editGDV(@RequestBody GDVRequest request){
         return new ResponseEntity<>(this.service.editGDV(request), HttpStatus.OK);
     }
