@@ -11,7 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/api/product")
+@CrossOrigin(origins = "https://localhost:4200")
 public class ProductController {
     @Autowired
     private IProductService productService;
