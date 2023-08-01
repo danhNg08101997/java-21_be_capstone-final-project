@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/api/customer")
+@CrossOrigin(origins = "https://localhost:4200")
 public class CustomerController {
     @Autowired
     private ICustomerService customerService;
