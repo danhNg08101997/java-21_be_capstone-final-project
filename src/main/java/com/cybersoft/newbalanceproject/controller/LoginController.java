@@ -23,10 +23,11 @@ public class LoginController {
     private ICustomerService customerService;
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = {"http://localhost:4200","http://localhost:3000"})
     public ResponseEntity<BaseResponse>signIn(
             @RequestBody SignUpRequest request
     ){
+        System.out.print(request.getUsername());
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword());
         UsernamePasswordAuthenticationToken newtoken = (UsernamePasswordAuthenticationToken) authenticationManager.authenticate(token);
         String jwt = jwtHelper.generateToken(String.valueOf(newtoken.getAuthorities().stream().findFirst().orElse(null)));

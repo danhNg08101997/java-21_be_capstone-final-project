@@ -27,8 +27,6 @@ public class TransactionEntity {
     private StatusEntity status;
     @Column(name = "start_time")
     private Date startTime;
-    @Column(name = "end_time")
-    private Date endTime;
     @OneToMany(mappedBy = "transaction")
     @JsonIgnore
     private Set<TicketEntitty> tickets;
@@ -79,14 +77,6 @@ public class TransactionEntity {
 
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
     }
 
     public Set<TicketEntitty> getTicket() {

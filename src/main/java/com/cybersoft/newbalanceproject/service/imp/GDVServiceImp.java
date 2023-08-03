@@ -20,6 +20,15 @@ public class GDVServiceImp implements IGDVService {
     private PasswordEncoder passwordEncoder;
 
     @Override
+    public boolean updateAvailable(int gdv) {
+        int count = repository.updateIsAvailable(gdv);
+        if(count > 0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public List<GDVEntity> getAll() {
         return repository.findByIsDeleteFalse();
     }
@@ -75,7 +84,7 @@ public class GDVServiceImp implements IGDVService {
         repository.getReferenceById(request.getId());
         entity.setGdvId(request.getId());
         entity.setUsername(request.getUsername());
-        entity.setPassword(request.getPassword());
+        entity.setPassword(passwordEncoder.encode(request.getPassword()));
         entity.setFullname(request.getFullname());
         entity.setAvailable(request.isAvailable());
         entity.setDelete(request.isDelete());

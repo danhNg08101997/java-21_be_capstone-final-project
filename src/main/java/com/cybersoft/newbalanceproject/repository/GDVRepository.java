@@ -12,6 +12,12 @@ import java.util.List;
 
 @Repository
 public interface GDVRepository extends JpaRepository<GDVEntity, Integer> {
+    @Query(value ="select gdv.gdv_id,gdv.gdv_name,gdv.gdv_password,gdv.is_available,gdv.is_delete,gdv.fullname from gdv join support on support.gdv_id = gdv.gdv_id and gdv.is_available =true and gdv.is_delete = false and support.product_id =:id limit 1",nativeQuery = true)
+    GDVEntity findByIdProduct(@Param("id") int id);
+    @Transactional
+    @Modifying
+    @Query(value = "update gdv set is_available=false where gdv.gdv_id = :id",nativeQuery = true)
+    int updateIsAvailable(@Param("id") int id);
     List<GDVEntity> findByIsDeleteFalse();
     GDVEntity findByUsername(String username);
     int countByUsername(String username);

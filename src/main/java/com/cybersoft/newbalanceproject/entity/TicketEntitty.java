@@ -19,7 +19,6 @@ public class TicketEntitty {
     @ManyToOne
     @JoinColumn(name = "gdv_id")
     private GDVEntity gdvOfTicket;
-
     public int getTicketId() {
         return ticketId;
     }

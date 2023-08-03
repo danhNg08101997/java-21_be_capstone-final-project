@@ -30,7 +30,7 @@ public class TransactionService implements ITransactionService {
         return transactionRepository.findByIsDeleteFalse();
     }
     @Override
-    public boolean addTransaction(TransactionRequest transaction) {
+    public TransactionEntity addTransaction(TransactionRequest transaction) {
         boolean isSuccess = false;
         try {
             TransactionEntity entity = new TransactionEntity();
@@ -43,15 +43,14 @@ public class TransactionService implements ITransactionService {
             entity.setProduct(productOpt.get());
             entity.setStatus(statusOpt.get());
             entity.setStartTime(transaction.getStart_time());
-            entity.setEndTime(transaction.getEnd_time());
             entity.setDelete(false);
             // Thêm transaction
-            transactionRepository.save(entity);
-            isSuccess = true;
+            TransactionEntity transactionEntity = transactionRepository.save(entity);
+            return transactionEntity;
         }catch (Exception e){
             e.printStackTrace();
         }
-        return isSuccess;
+        return null;
     }
 
     @Override
@@ -79,7 +78,6 @@ public class TransactionService implements ITransactionService {
         entity.setStatus(statusRepository.findById(transactionRequest.getGdvId()).get());
         entity.setGdvOfTransaction(gDVRepository.findById(transactionRequest.getGdvId()).get());
         entity.setStartTime(transactionRequest.getStart_time());
-        entity.setEndTime(transactionRequest.getEnd_time());
         entity.setDelete(false);
         transactionRepository.save(entity);
         if(entity != null){
