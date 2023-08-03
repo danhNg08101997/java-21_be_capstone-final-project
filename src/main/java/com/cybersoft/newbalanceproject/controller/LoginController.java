@@ -22,8 +22,13 @@ public class LoginController {
     @Autowired
     private ICustomerService customerService;
 
+<<<<<<< HEAD
     @RequestMapping(value = "/signin", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @CrossOrigin(origins = {"http://localhost:4200","http://localhost:3000"})
+=======
+    @RequestMapping(value = "/api/signin", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @CrossOrigin(origins = "http://localhost:4200")
+>>>>>>> aed371a290f1bbbff71185a3dc1cae576ad08721
     public ResponseEntity<BaseResponse>signIn(
             @RequestBody SignUpRequest request
     ){
@@ -37,7 +42,8 @@ public class LoginController {
         response.setData(jwt);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @RequestMapping(value = "/signup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value = "/api/signup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @CrossOrigin(origins = "https://localhost:4200")
     public ResponseEntity<BaseResponse> signup(@Valid @RequestBody SignUpRequest signupRequest){
         boolean isSuccess = customerService.addCustomer(signupRequest);
         BaseResponse response = new BaseResponse();
