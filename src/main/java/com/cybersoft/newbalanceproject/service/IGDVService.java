@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface IGDVService {
     List<GDVEntity> getAll();
+    List<GDVEntity> getUsername(GDVRequest request);
     boolean addGDV(GDVRequest request);
     BaseResponse deleteGDV(int id);
 

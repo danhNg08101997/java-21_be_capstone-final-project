@@ -23,6 +23,13 @@ public class GDVController {
         response.setStatusCode(HttpStatus.OK.value());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+    @PostMapping(value = "/getUsername",consumes = "application/json", produces = "application/json")
+    ResponseEntity<BaseResponse>getUsername(@RequestBody GDVRequest request){
+        BaseResponse response = new BaseResponse();
+        response.setData(this.service.getUsername(request));
+        response.setStatusCode(HttpStatus.OK.value());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
     @PostMapping(value = "/create",consumes = "application/json", produces = "application/json")
     ResponseEntity<BaseResponse>createGDV(@RequestBody GDVRequest request){
         boolean isSuccess = service.addGDV(request);

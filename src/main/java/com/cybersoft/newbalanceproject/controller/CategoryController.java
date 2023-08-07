@@ -18,6 +18,7 @@ public class CategoryController {
         @PostMapping(value = "", consumes = "application/json", produces = "application/json")
     public ResponseEntity<BaseResponse> getAllCategories(){
         BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setMessage("Lấy danh mục thành công");
         baseResponse.setStatusCode(HttpStatus.OK.value());
         baseResponse.setData(service.getAllCategories());
         return new ResponseEntity<>(baseResponse, HttpStatus.OK);
@@ -29,11 +30,11 @@ public class CategoryController {
         BaseResponse response = new BaseResponse();
         if(isSuccess){
             response.setStatusCode(HttpStatus.OK.value());
-            response.setMessage("Tạo mới thành công");
+            response.setMessage("Tạo mới danh mục thành công");
             response.setData(isSuccess);
         }else {
             response.setStatusCode(HttpStatus.BAD_REQUEST.value());
-            response.setMessage("Tạo mới thất bại");
+            response.setMessage("Tạo mới danh mục thất bại");
             response.setData(isSuccess);
         }
 

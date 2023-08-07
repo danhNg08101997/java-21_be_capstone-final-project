@@ -1,8 +1,12 @@
 package com.cybersoft.newbalanceproject.dto.request;
 
+import lombok.Getter;
+
 public class CategoryRequest {
     private int id;
     private String name;
+    @Getter
+    private String icon;
     private boolean isDelete;
 
     public boolean isDelete() {
@@ -27,5 +31,9 @@ public class CategoryRequest {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

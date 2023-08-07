@@ -41,6 +41,8 @@ public class CategoryServiceImp implements ICategoryService {
                 CategoryEntity entity = new CategoryEntity();
                 entity.setId(data.getId());
                 entity.setCategoryName(data.getCategoryName());
+                entity.setIcon(data.getIcon());
+                entity.setDelete(data.isDelete());
                 responseList.add(entity);
             }
             Gson gson = new Gson();
@@ -62,7 +64,7 @@ public class CategoryServiceImp implements ICategoryService {
             response.setDelete(false);
             int countGetName = repository.countAllByCategoryName(request.getName());
             if (countGetName>0){
-                System.out.println("Category_name đã tồn tại");
+                System.out.println("category_name đã tồn tại");
                 return isSuccess;
             }
             repository.save(response);
@@ -95,6 +97,7 @@ public class CategoryServiceImp implements ICategoryService {
         repository.getReferenceById(request.getId());
             entity.setId(request.getId());
             entity.setCategoryName(request.getName());
+            entity.setIcon(request.getIcon());
             entity.setDelete(request.isDelete());
             if(entity != null){
                 response.setStatusCode(HttpStatus.OK.value());

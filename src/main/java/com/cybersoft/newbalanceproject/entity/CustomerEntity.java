@@ -1,6 +1,7 @@
 package com.cybersoft.newbalanceproject.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.nio.MappedByteBuffer;
@@ -22,6 +23,14 @@ public class CustomerEntity {
     private boolean isDelete;
     @Column(name = "fullname")
     private String fullname;
+    @Getter
+    @Column(name = "role")
+    private String role;
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @OneToMany(mappedBy = "customer")
     @JsonIgnore
     private Set<TransactionEntity> transactions ;

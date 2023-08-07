@@ -47,7 +47,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //Khai báo không sử dụng session trong project
                 .and()
                 .authorizeHttpRequests() //Quy định lại các rule liên quan đến chứng thực cho link được gọi
-                .antMatchers("/api/signin", "/api/signup", "/api/category/**")
+                .antMatchers("/api/signin", "/api/signup", "/api/**")
                 .permitAll()
                 .antMatchers("/api/customer/**").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated() //Tất cả các link còn lại đều phải chứng thực

@@ -43,7 +43,6 @@ public class TransactionService implements ITransactionService {
             entity.setProduct(productOpt.get());
             entity.setStatus(statusOpt.get());
             entity.setStartTime(transaction.getStart_time());
-            entity.setEndTime(transaction.getEnd_time());
             entity.setDelete(false);
             // Thêm transaction
             transactionRepository.save(entity);
@@ -79,7 +78,6 @@ public class TransactionService implements ITransactionService {
         entity.setStatus(statusRepository.findById(transactionRequest.getGdvId()).get());
         entity.setGdvOfTransaction(gDVRepository.findById(transactionRequest.getGdvId()).get());
         entity.setStartTime(transactionRequest.getStart_time());
-        entity.setEndTime(transactionRequest.getEnd_time());
         entity.setDelete(false);
         transactionRepository.save(entity);
         if(entity != null){

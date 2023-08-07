@@ -14,6 +14,7 @@ import java.util.List;
 public interface GDVRepository extends JpaRepository<GDVEntity, Integer> {
     List<GDVEntity> findByIsDeleteFalse();
     GDVEntity findByUsername(String username);
+    List<GDVEntity>findAllByUsernameIs(String username);
     int countByUsername(String username);
     @Transactional
     @Modifying
