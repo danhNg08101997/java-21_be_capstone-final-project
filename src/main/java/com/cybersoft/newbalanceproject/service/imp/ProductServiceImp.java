@@ -27,11 +27,12 @@ public class ProductServiceImp implements IProductService {
         boolean isSuccess = false;
         try {
             ProductEntity entity = new ProductEntity();
-            entity.setProductName(product.getProduct_name());
-            entity.setProductDesc(product.getProduct_desc());
+            entity.setProductName(product.getProductName());
+            entity.setProductDesc(product.getProductDesc());
             entity.setCategory(categoryRepository.findById(product.getCategoryId()).get());
+            entity.setPath(product.getPath());
             entity.setDelete(false);
-            int countUsername = productRepository.countByProductName(product.getProduct_name());
+            int countUsername = productRepository.countByProductName(product.getProductName());
             if(countUsername > 0){
                 return isSuccess;
             }
@@ -64,8 +65,8 @@ public class ProductServiceImp implements IProductService {
         ProductEntity entity = new ProductEntity();
         productRepository.getReferenceById(product.getProductId());
         entity.setProductId(product.getProductId());
-        entity.setProductName(product.getProduct_name());
-        entity.setProductDesc(product.getProduct_desc());
+        entity.setProductName(product.getProductName());
+        entity.setProductDesc(product.getProductDesc());
         entity.setCategory(categoryRepository.findById(product.getCategoryId()).get());
         entity.setDelete(false);
         productRepository.save(entity);

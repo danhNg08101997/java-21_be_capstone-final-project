@@ -78,7 +78,6 @@ public class TransactionEntity {
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
-
     public Set<TicketEntitty> getTicket() {
         return tickets;
     }

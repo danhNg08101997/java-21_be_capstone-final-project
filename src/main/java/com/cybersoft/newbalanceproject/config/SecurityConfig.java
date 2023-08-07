@@ -47,15 +47,10 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //Khai báo không sử dụng session trong project
                 .and()
                 .authorizeHttpRequests() //Quy định lại các rule liên quan đến chứng thực cho link được gọi
-<<<<<<< HEAD
-                .antMatchers("/signin", "/signup","/ws/**").permitAll()
-                .antMatchers("/customer/**").hasAuthority("ROLE_ADMIN")
-                .antMatchers("/message/private-message").hasAuthority("ROLE_CUSTOMER")
-=======
-                .antMatchers("/api/signin", "/api/signup", "/api/category/**")
+                .antMatchers("/api/signin", "/api/signup", "/api/**")
                 .permitAll()
                 .antMatchers("/api/customer/**").hasAuthority("ROLE_ADMIN")
->>>>>>> aed371a290f1bbbff71185a3dc1cae576ad08721
+
                 .anyRequest().authenticated() //Tất cả các link còn lại đều phải chứng thực
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

@@ -44,7 +44,6 @@ public class TransactionRequest {
     public int getProductId() {
         return productId;
     }
-
     public int getTransId() {
         return transId;
     }

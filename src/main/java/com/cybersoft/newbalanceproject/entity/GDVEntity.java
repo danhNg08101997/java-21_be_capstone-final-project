@@ -1,6 +1,7 @@
 package com.cybersoft.newbalanceproject.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -19,6 +20,14 @@ public class GDVEntity {
     private String fullname;
     @Column(name = "is_available")
     private boolean isAvailable;
+    @Getter
+    @Column(name = "role")
+    private String role;
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @OneToMany(mappedBy = "gdvOfTransaction")
     @JsonIgnore
     private Set<TransactionEntity> transactions;

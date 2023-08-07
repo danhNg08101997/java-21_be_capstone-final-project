@@ -20,6 +20,7 @@ public interface GDVRepository extends JpaRepository<GDVEntity, Integer> {
     int updateIsAvailable(@Param("id") int id);
     List<GDVEntity> findByIsDeleteFalse();
     GDVEntity findByUsername(String username);
+    List<GDVEntity>findAllByUsernameIs(String username);
     int countByUsername(String username);
     @Transactional
     @Modifying

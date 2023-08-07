@@ -1,6 +1,7 @@
 package com.cybersoft.newbalanceproject.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -13,9 +14,18 @@ public class CategoryEntity {
     private int id;
     @Column(name = "category_name")
     private String categoryName;
+    @Column(name = "icon")
+    private String icon;
     @OneToMany(mappedBy = "category")
     @JsonIgnore
     private Set<ProductEntity> products;
+
+    public String getIcon() {
+        return icon;
+    }
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
     public Set<ProductEntity> getProducts() {
         return products;

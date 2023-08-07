@@ -1,22 +1,15 @@
 package com.cybersoft.newbalanceproject.service.imp;
 
 import com.cybersoft.newbalanceproject.dto.request.CustomerRequest;
-import com.cybersoft.newbalanceproject.dto.request.SignUpRequest;
 import com.cybersoft.newbalanceproject.dto.response.BaseResponse;
-import com.cybersoft.newbalanceproject.dto.response.CustomerRespone;
 import com.cybersoft.newbalanceproject.entity.CustomerEntity;
 import com.cybersoft.newbalanceproject.repository.CustomerRepository;
 import com.cybersoft.newbalanceproject.service.ICustomerService;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,10 +18,8 @@ public class CustomerServiceImp implements ICustomerService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private CustomerRepository repository;
-    @Autowired
-    private RedisTemplate redis;
     @Override
-    public boolean addCustomer(SignUpRequest request) {
+    public boolean addCustomer(CustomerRequest request) {
         boolean isSuccess = false;
         try {
             CustomerEntity customer = new CustomerEntity();
@@ -37,6 +28,7 @@ public class CustomerServiceImp implements ICustomerService {
             customer.setPassword(passwordEncoder.encode(request.getPassword()));
             customer.setDelete(false);
             customer.setPriority(false);
+            customer.setRole("CUSTOMER");
             int countUsername = repository.countByUsername(request.getUsername());
             if(countUsername > 0){
                 return isSuccess;
