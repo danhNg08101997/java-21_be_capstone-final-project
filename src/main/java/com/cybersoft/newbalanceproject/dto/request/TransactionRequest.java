@@ -11,6 +11,7 @@ public class TransactionRequest {
     private int gdvId;
     private int statusId;
     private Date start_time;
+
     public void setGdvId(int gdvId) {
         this.gdvId = gdvId;
     }
@@ -43,8 +44,6 @@ public class TransactionRequest {
     public int getProductId() {
         return productId;
     }
-
-
     public int getTransId() {
         return transId;
     }
@@ -60,5 +59,4 @@ public class TransactionRequest {
     public int getCustomerId() {
         return customerId;
     }
-
 }

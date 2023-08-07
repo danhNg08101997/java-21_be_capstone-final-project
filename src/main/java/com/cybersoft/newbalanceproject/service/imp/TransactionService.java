@@ -30,7 +30,7 @@ public class TransactionService implements ITransactionService {
         return transactionRepository.findByIsDeleteFalse();
     }
     @Override
-    public boolean addTransaction(TransactionRequest transaction) {
+    public TransactionEntity addTransaction(TransactionRequest transaction) {
         boolean isSuccess = false;
         try {
             TransactionEntity entity = new TransactionEntity();
@@ -45,12 +45,12 @@ public class TransactionService implements ITransactionService {
             entity.setStartTime(transaction.getStart_time());
             entity.setDelete(false);
             // Thêm transaction
-            transactionRepository.save(entity);
-            isSuccess = true;
+            TransactionEntity transactionEntity = transactionRepository.save(entity);
+            return transactionEntity;
         }catch (Exception e){
             e.printStackTrace();
         }
-        return isSuccess;
+        return null;
     }
 
     @Override

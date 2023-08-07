@@ -12,6 +12,6 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 public class WebSocketEventListener {
     @EventListener
     public void handleWebSocketDisconnection(SessionDisconnectEvent event){
-
+        System.out.print(event);
     }
 }

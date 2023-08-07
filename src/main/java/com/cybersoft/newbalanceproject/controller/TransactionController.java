@@ -2,6 +2,7 @@ package com.cybersoft.newbalanceproject.controller;
 
 import com.cybersoft.newbalanceproject.dto.request.TransactionRequest;
 import com.cybersoft.newbalanceproject.dto.response.BaseResponse;
+import com.cybersoft.newbalanceproject.entity.TransactionEntity;
 import com.cybersoft.newbalanceproject.service.ITransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,9 +24,9 @@ public class TransactionController {
     }
     @PostMapping(value = "/create",consumes = "application/json", produces = "application/json")
     public ResponseEntity<BaseResponse> createproduct(@RequestBody TransactionRequest transactionRequest){
-        boolean issuccess = transaction.addTransaction(transactionRequest);
+        TransactionEntity transactionEntity = transaction.addTransaction(transactionRequest);
         BaseResponse response = new BaseResponse();
-        if(issuccess){
+        if(transactionEntity!=null){
             response.setData(true);
             response.setMessage("Thêm Thành Công");
             response.setStatusCode(200);

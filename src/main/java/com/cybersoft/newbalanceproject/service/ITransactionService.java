@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ITransactionService {
     List<TransactionEntity> getAllTransaction();
-    boolean addTransaction(TransactionRequest transactionRequest);
+    TransactionEntity addTransaction(TransactionRequest transactionRequest);
     BaseResponse deleteTransaction(int id);
     BaseResponse editTransaction(TransactionRequest transactionRequest);
 }
