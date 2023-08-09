@@ -2,6 +2,7 @@ package com.cybersoft.newbalanceproject.controller;
 
 import com.cybersoft.newbalanceproject.dto.request.SignUpRequest;
 import com.cybersoft.newbalanceproject.dto.response.BaseResponse;
+import com.cybersoft.newbalanceproject.dto.response.JwtUsernameId;
 import com.cybersoft.newbalanceproject.service.ICustomerService;
 import com.cybersoft.newbalanceproject.utils.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,24 +23,21 @@ public class LoginController {
     @Autowired
     private ICustomerService customerService;
 
-<<<<<<< HEAD
-    @RequestMapping(value = "/signin", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    @CrossOrigin(origins = {"http://localhost:4200","http://localhost:3000"})
-=======
     @RequestMapping(value = "/api/signin", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @CrossOrigin(origins = "http://localhost:4200")
->>>>>>> aed371a290f1bbbff71185a3dc1cae576ad08721
     public ResponseEntity<BaseResponse>signIn(
             @RequestBody SignUpRequest request
     ){
-        System.out.print(request.getUsername());
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword());
         UsernamePasswordAuthenticationToken newtoken = (UsernamePasswordAuthenticationToken) authenticationManager.authenticate(token);
         String jwt = jwtHelper.generateToken(String.valueOf(newtoken.getAuthorities().stream().findFirst().orElse(null)));
         BaseResponse response = new BaseResponse();
         response.setStatusCode(200);
         response.setMessage("Đăng nhập thành công");
-        response.setData(jwt);
+        JwtUsernameId jwtUsernameId = new JwtUsernameId();
+        jwtUsernameId.setJwt(jwt);
+        jwtUsernameId.setUsername(request.getUsername());
+        response.setData(jwtUsernameId);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
     @RequestMapping(value = "/api/signup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
