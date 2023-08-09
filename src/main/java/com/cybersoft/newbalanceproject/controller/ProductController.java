@@ -19,7 +19,7 @@ public class ProductController {
     @PostMapping(value = "",consumes = "application/json", produces = "application/json")
     public ResponseEntity<BaseResponse> getAllproduct(){
         BaseResponse response = new BaseResponse();
-        response.setMessage("Thành công");
+        response.setMessage("Lấy danh sách sản phẩm thành công");
         response.setStatusCode(200);
         response.setData(productService.getAllProduct());
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -30,11 +30,11 @@ public class ProductController {
         BaseResponse response = new BaseResponse();
         if(issuccess){
             response.setData(true);
-            response.setMessage("Thêm Thành Công");
+            response.setMessage("Thêm sản phẩm thành công");
             response.setStatusCode(200);
         }else{
             response.setData(false);
-            response.setMessage("Thêm Thất Bại");
+            response.setMessage("Thêm sản phẩm thất bại");
             response.setStatusCode(400);
         }
         return new ResponseEntity<>(response,HttpStatus.OK);

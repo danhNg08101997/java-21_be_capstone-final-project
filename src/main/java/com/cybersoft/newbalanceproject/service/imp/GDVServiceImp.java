@@ -34,6 +34,11 @@ public class GDVServiceImp implements IGDVService {
     }
 
     @Override
+    public List<GDVEntity> getUsername(GDVRequest request) {
+        return repository.findAllByUsernameIs(request.getUsername());
+    }
+
+    @Override
     public boolean addGDV(GDVRequest request) {
         boolean isSuccess = false;
         try {
@@ -43,6 +48,7 @@ public class GDVServiceImp implements IGDVService {
             gdv.setPassword(passwordEncoder.encode(request.getPassword()));
             gdv.setAvailable(false);
             gdv.setDelete(false);
+            gdv.setRole("GDV");
 
             // Kiểm tra trùng
             int countUsername = repository.countByUsername(request.getUsername());
@@ -87,7 +93,6 @@ public class GDVServiceImp implements IGDVService {
         entity.setPassword(passwordEncoder.encode(request.getPassword()));
         entity.setFullname(request.getFullname());
         entity.setAvailable(request.isAvailable());
-        entity.setDelete(request.isDelete());
         repository.save(entity);
 
         if(entity != null){

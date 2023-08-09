@@ -2,6 +2,7 @@ package com.cybersoft.newbalanceproject.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.util.Optional;
@@ -17,6 +18,29 @@ public class ProductEntity {
     private String productName;
     @Column(name = "product_desc")
     private String productDesc;
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    @Getter
+    @Column(name="link_path")
+    private String path;
+    @Column(name = "icon")
+    private String icon;
+
+    public String getPath() {
+        return path;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
     @OneToMany(mappedBy = "product")
     @JsonIgnore
     private Set<TransactionEntity> transactions;

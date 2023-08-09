@@ -2,8 +2,9 @@ package com.cybersoft.newbalanceproject.dto.request;
 
 public class ProductRequest {
     private int productId ;
-    private String product_name;
-    private String product_desc;
+    private String productName;
+    private String productDesc;
+    private String path;
     private int categoryId;
 
     public void setProductId(int productId) {
@@ -12,24 +13,34 @@ public class ProductRequest {
     public int getProductId() {
         return productId;
     }
-    public void setProduct_desc(String product_desc) {
-        this.product_desc = product_desc;
-    }
 
-    public void setProduct_name(String product_name) {
-        this.product_name = product_name;
-    }
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
 
-    public String getProduct_desc() {
-        return product_desc;
+    public String getProductName() {
+        return productName;
     }
 
-    public String getProduct_name() {
-        return product_name;
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getProductDesc() {
+        return productDesc;
+    }
+
+    public void setProductDesc(String productDesc) {
+        this.productDesc = productDesc;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public int getCategoryId() {

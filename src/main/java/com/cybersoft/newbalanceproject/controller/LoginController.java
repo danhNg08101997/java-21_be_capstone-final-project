@@ -1,5 +1,6 @@
 package com.cybersoft.newbalanceproject.controller;
 
+import com.cybersoft.newbalanceproject.dto.request.CustomerRequest;
 import com.cybersoft.newbalanceproject.dto.request.SignUpRequest;
 import com.cybersoft.newbalanceproject.dto.response.BaseResponse;
 import com.cybersoft.newbalanceproject.dto.response.JwtUsernameId;
@@ -42,8 +43,8 @@ public class LoginController {
     }
     @RequestMapping(value = "/api/signup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @CrossOrigin(origins = "https://localhost:4200")
-    public ResponseEntity<BaseResponse> signup(@Valid @RequestBody SignUpRequest signupRequest){
-        boolean isSuccess = customerService.addCustomer(signupRequest);
+    public ResponseEntity<BaseResponse> signup(@Valid @RequestBody CustomerRequest request){
+        boolean isSuccess = customerService.addCustomer(request);
         BaseResponse response = new BaseResponse();
         if(isSuccess) {
             response.setStatusCode(HttpStatus.OK.value());
@@ -51,7 +52,7 @@ public class LoginController {
             response.setData(isSuccess);
         }else {
             response.setStatusCode(HttpStatus.BAD_REQUEST.value());
-            response.setMessage("Đăng ký thất bại - vì đã tồn tại username: " + signupRequest.getUsername() + " trong hệ thống");
+            response.setMessage("Đăng ký thất bại - vì đã tồn tại username: " + request.getUsername() + " trong hệ thống");
             response.setData(isSuccess);
         }
 
