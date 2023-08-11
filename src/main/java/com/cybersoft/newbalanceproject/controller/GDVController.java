@@ -46,7 +46,7 @@ public class GDVController {
     }
     @PostMapping(value = "/delete",consumes = "application/json", produces = "application/json")
     ResponseEntity<BaseResponse>deleteGDV(@RequestBody GDVRequest request){
-        return new ResponseEntity<>(this.service.deleteGDV(request.getId()),HttpStatus.OK );
+        return new ResponseEntity<>(this.service.deleteGDV(request.getGdvId()),HttpStatus.OK );
     }
     @PostMapping(value = "/edit",consumes = "application/json", produces = "application/json")
     ResponseEntity<BaseResponse>editGDV(@RequestBody GDVRequest request){
