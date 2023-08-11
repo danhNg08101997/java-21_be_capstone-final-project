@@ -3,7 +3,8 @@ package com.cybersoft.newbalanceproject.dto.request;
 import lombok.Getter;
 
 public class GDVRequest extends SignUpRequest {
-    private int id;
+    @Getter
+    private int gdvId;
     private boolean isAvailable;
     private boolean isDelete;
 @Getter
@@ -21,12 +22,8 @@ private String role;
         isDelete = delete;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setGdvId(int gdvId) {
+        this.gdvId = gdvId;
     }
 
     public boolean isAvailable() {

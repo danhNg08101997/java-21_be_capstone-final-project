@@ -87,13 +87,13 @@ public class GDVServiceImp implements IGDVService {
     public BaseResponse editGDV(GDVRequest request) {
         BaseResponse baseResponse = new BaseResponse();
         GDVEntity entity = new GDVEntity();
-        entity.setGdvId(request.getId());
+        repository.getReferenceById(request.getGdvId());
+        entity.setGdvId(request.getGdvId());
         entity.setUsername(request.getUsername());
         entity.setPassword(passwordEncoder.encode(request.getPassword()));
         entity.setFullname(request.getFullname());
         entity.setAvailable(request.isAvailable());
         entity.setRole("GDV");
-        repository.getReferenceById(entity.getGdvId());
         repository.save(entity);
 
 
