@@ -50,7 +50,6 @@ public class SecurityConfig {
                 .antMatchers("/api/signin", "/api/signup", "/api/**")
                 .permitAll()
                 .antMatchers("/api/customer/**").hasAuthority("ROLE_ADMIN")
-
                 .anyRequest().authenticated() //Tất cả các link còn lại đều phải chứng thực
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
