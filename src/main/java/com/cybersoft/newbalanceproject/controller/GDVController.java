@@ -2,7 +2,6 @@ package com.cybersoft.newbalanceproject.controller;
 
 import com.cybersoft.newbalanceproject.dto.request.GDVRequest;
 import com.cybersoft.newbalanceproject.dto.response.BaseResponse;
-import com.cybersoft.newbalanceproject.entity.GDVEntity;
 import com.cybersoft.newbalanceproject.service.IGDVService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
